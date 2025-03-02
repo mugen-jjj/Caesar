@@ -1,0 +1,44 @@
+
+;--| 基本情報 |---------------------------------------------------------------
+
+[Info]
+Name         = "ShinCaesar"  ;キャラクターの名前（必要な項目なので省略不可）
+DisplayName  = "ShinCaesar"  ;M.U.G.E.Nで実際に表示される名前（省略可能）
+VersionDate  = 04,14,2002     ;キャラクターの最終更新日（変えなくてもＯＫ）
+MugenVersion = 1.1     ;キャラクターが動作出来るM.U.G.E.Nの改訂版
+Author       = "JJJ"     ;キャラクターの作成者（必要な項目なので省略不可）
+Pal.Defaults = 1,2,3,4,5,6,7,8,9,10,11,12
+
+;-----------------------------------------------------------------------------
+
+[Files]
+Cmd     = caesar.cmd       ;コマンドファイルの登録
+Cns     = caesar.cns       ;コンスタンツファイルの登録
+St      = caesar.cns       ;ステートファイルの登録・最大１１個まで増やせます
+St1     = -2state.cns
+                        ;（St,St0,St1,St2,St3,St4,St5,St6,St7,St8,St9）
+                        ;「St」のみ必要な項目なので省略出来ません
+StCommon = common1.cns  ;コモンステートファイルの登録
+Sprite  = caesar.sff       ;複数のＰＣＸ画像をまとめたスプライトファイルの登録
+Anim    = caesar.air       ;アニメーションファイルの登録
+Sound   = caesar.snd       ;複数のＷＡＶＥ音声をまとめたサウンドファイルの登録
+
+;--| カラーパレットファイル |-------------------------------------------------
+
+;キャラクターの色を定義するファイルは最大１２個まで登録が可能です。
+
+Pal1 = act/caesar01.act
+Pal2 = act/caesar02.act
+Pal3 = act/caesar03.act
+Pal4 = act/caesar04.act
+Pal5 = act/caesar05.act
+Pal6 = act/caesar06.act
+Pal7 = act/caesar07.act
+Pal8 = act/caesar08.act
+Pal9 = act/caesar09.act
+Pal10= act/caesar10.act
+Pal11= act/caesar11.act
+Pal12= act/caesar12.act
+
+;-----------------------------------------------------------------------------
+
