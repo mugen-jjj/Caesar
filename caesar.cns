@@ -1804,7 +1804,7 @@ velset = 0,0
 type = changestate
 triggerall = time > 0
 trigger1 = p2name = "Kars" && !var(50)
-trigger2 = p2name = "otoisi" && var(50)
+trigger2 = p2name = "Otoishi" && var(50)
 trigger3 = p2name = "ultimmate Caesar" && var(50)
 value = 197
 
@@ -1817,7 +1817,7 @@ trigger2 = p2name = "Kars"
 trigger3 = p2name = "Joseph"
 trigger4 = p2name = "zeppeli"
 trigger5 = p2name = "jonathan"
-trigger6 = p2name = "otoisi"
+trigger6 = p2name = "Otoishi"
 trigger7 = p2name = "ultimmate Caesar"
 value = 197
 
@@ -1942,7 +1942,7 @@ value = anim
 [State -2, Voice]
 type = PlaySnd
 triggerall = animelem = 2
-trigger1 = p2name = "otoisi"
+trigger1 = p2name = "Otoishi"
 trigger2 = p2name = "ultimmate Caesar"
 value = 199 + var(50),1
 channel = 0
@@ -2582,7 +2582,7 @@ ground.slidetime = 12
 guard.slidetime = 10
 ground.hittime  = 10
 ground.velocity = -2,-12 + fVar(20)
-air.velocity = -2,-9 + fVar(20)
+air.velocity = -2,-8 + fVar(20)
 yaccel = 0.45
 getpower = 60,0
 givepower = 30,0
@@ -3324,7 +3324,7 @@ trigger1 = AnimElemtime(2) >= 0
 trigger1 = animelemtime(5) < 0
 attr = A, NA
 animtype  = hard
-damage    = ceil(50*  (1+((var(8) > 0)*1.0)) *fVar(10)),0
+damage    = ceil(50*  (1+((var(8) > 0)*0.5)) *fVar(10)),0
 guardflag = HA
 pausetime = IfElse(var(8) > 0, 30, 11), IfElse(var(8) > 0, 30, 11)
 sparkno = -1
@@ -4454,8 +4454,8 @@ movetype = A
 physics = N
 ctrl = 0
 velset = 0,0
-anim = 1051
-sprpriority = 3
+anim = 1050
+sprpriority = 2
 
 ;root.var(0)	カッターCount
 
@@ -4470,6 +4470,9 @@ sprpriority = 3
 ;var(8)			random
 ;var(10)		超レンズで使う
 
+;fvar(0)        angle
+;fvar(2)        p2dist x
+;fvar(3)        p2dist y
 
 ;;;Initial
 [State , 個数カウント用];
@@ -4513,22 +4516,6 @@ var(6) = 62
 Type = VarRandom
 Trigger1 = Time = 0
 v = 8
-
-[State 0, explod]
-type = explod
-trigger1 = time = 0
-anim = 1050
-facing = 1
-postype = p1
-pos = 0,0
-sprpriority = 2
-ownpal = 0
-bindtime = -1
-RemoveTime = -1
-removeongethit = 1
-Scale = 0.5, 0.5
-IgnoreHitPause = 0
-ID = Var(8)
 
 ;;; Velosity
 [State 1100, Velocity]
@@ -4592,7 +4579,7 @@ y = -0.15
 type = Veladd
 trigger1 = var(2) >= 10
 trigger1 = time <= Var(6)
-y = IFElse(time < 24, -0.05, -0.15)
+y = IFElse(time < 24, -0.05, -0.20)
 
 [State , Velocity]
 type = VelMul
@@ -4621,60 +4608,67 @@ trigger1 = !(time%20)
 x = ifelse(vel x > 0, -0.1, 0.1)
 y = 0
 
-;;;回転量
 [State , VarSet]
 type = VarSet
 trigger1 = time = Var(6)
-fvar(2) = ifelse((P2dist x=[0,1]),1,ifelse((P2dist x=[-1,0]),-1,P2dist x))
+fvar(2) = (p2dist x) 
+[State , VarSet]
+type = VarSet
+trigger1 = time = Var(6)
+fvar(3) = (p2dist y - 50)
 
 [State , VarSet]
 type = VarSet
 trigger1 = time = Var(6)
-fvar(3) = ifelse((P2dist y=[0,1]),1,ifelse((P2dist y=[-1,0]),-1,P2dist y));-50
-;+20
+fvar(1) = Atan(fvar(2) / fvar(3))
 
 [State , VarSet]
 type = VarSet
 trigger1 = time = Var(6)
-var(0) = ceil((atan(fvar(2)/fvar(3))*180)/pi)-(90*ifelse(P2dist y<0,1,1))-(p2dist y<0)*180
+fvar(0) = fvar(1) * (180/Pi) + ((fvar(3) < 0) * 180)
 
-[State , VarSet]
-type = VarSet
-trigger1 = time = Var(6)
-fvar(5) = p2dist y -50
-
-[State , ModifyExplod]
-Type = ModifyExplod
+[State , angle]
+Type = AngleDraw
 trigger1 = time = [0, 12)
-ID = Var(8)
-Angle = IfElse(var(2) < 4, -20, -8)
-[State , ModifyExplod]
-Type = ModifyExplod
+Value = IfElse(var(2) < 4, -20, -8)
+[State , angle]
+Type = AngleDraw
 trigger1 = var(2) < 10
 trigger1 = time = [12, Var(6))
-ID = Var(8)
-Angle = IfElse(var(2) < 4, -20, -8) + ((Time - 12) * 1)
-
-Angle = IfElse(var(2) < 4, -20, -8)
-[State , ModifyExplod]
-Type = ModifyExplod
+Value = IfElse(var(2) < 4, -20, -8) + ((Time - 12) * 1)
+[State , angle]
+Type = AngleDraw
 trigger1 = var(2) >= 10
 trigger1 = time = [12, Var(6))
-ID = Var(8)
-Angle = -20 + ((Time - 12) * 2)
+Value = -20 + ((Time - 12) * 2)
 
-[State , ModifyExplod]
-Type = ModifyExplod
+[State , angle]
+Type = AngleDraw
 trigger1 = time = [0, 24)
-ID = Var(8)
-Angle = -4
+Value = -4
 
 [State , ModifyExplod]
-Type = ModifyExplod
+Type = AngleDraw
 trigger1 = time >= Var(6)
-ID = Var(8)
-Angle = var(0) - 270
+Value = fvar(0)
 
+[State -3, ExShadow]
+type = afterimage
+trigger1 = time = 0
+time = 40
+timegap = 1
+framegap = 1
+length = 4
+palbright = 32,32,32
+palcontrast = 64,64,64
+paladd = 32, 32, 256
+trans = add
+ignorehitpause = 1
+[State 3000,11]
+type = AfterImageTime
+trigger1 = time = Var(6)
+trigger2 = var(4) = 1
+time = 1
 
 ;;;OnHit
 [State , VarSet]
@@ -4688,11 +4682,10 @@ type = ParentVarAdd
 trigger1 = MoveHit = 1
 var(13) = 1
 
-[State , ModifyExplod]
-Type = ModifyExplod
+[State , trans]
+Type = Trans
 Trigger1 = var(4) = 1
 Trigger2 = Time >= Var(6)
-ID = Var(8)
 Trans = AddAlpha
 Alpha = 128
 
@@ -4811,17 +4804,16 @@ type = Null
 trigger1 = MoveContact = 1
 trigger1 = root,cond(1,var(4):= 1,0)
 
-[State 3001, VarSet]
-type = null;;;parentVarAdd
-trigger1 = movehit = 1
-var(1) = 1
-IgnoreHitPause = 1
-
 ;;;滞空
 [State 3001, VarSet]
 type = parentVarSet
 trigger1 = time = Var(6)
 var(15) = 1
+
+[State 3001, VarSet]
+type = sprpriority
+trigger1 = time = Var(6)
+value = -2
 
 ;レンズ移行
 [State 900, 4]
@@ -4857,6 +4849,11 @@ trigger1 = numhelper(90000 + var(5) + 6)
 [Statedef 1055]
 Anim = 2910
 
+[State 3000,11]
+type = AfterImageTime
+trigger1 = time = 0
+time = 1
+
 [State 900, 4]
 type = RemoveExplod
 trigger1 = time = 0
@@ -4881,7 +4878,7 @@ sprpriority = 1
 [State 200, 変数]
 type = VarSet
 trigger1 = AnimElemTime(1) = 0
-var(4)= 0
+var(4) = 0
 
 [State 1100, VarSet]
 type = VarSet
@@ -4967,7 +4964,7 @@ ctrl = 1
 ;---------------------------------------------------------------------------
 ;シャボンレンズ
 [Statedef 1200]
-type    = C
+type    = S
 movetype= A
 physics = N
 poweradd= 50
@@ -5084,17 +5081,17 @@ movetype = A
 physics = N
 ctrl = 0
 velset = 0,0
-anim = 1051
+anim = 1050
+sprpriority = 2
 
 ;root.var(0)	カッターCount
 
 ;var(0)			角度
-;var(1)			角度2
 ;var(2)			カッターごとのValue(1～6)
 ;var(3)			同時発射の何発目か
 ;var(4)			ヒットフラグ
 ;var(5)			個数カウントコピー用
-;var(6)		滞空タイミング
+;var(6)		    滞空タイミングTime
 ;var(8)			random
 ;var(10)		超レンズで使う
 
@@ -5108,35 +5105,14 @@ var(20) = root,var(2)
 [State , VarSet]
 type = VarSet
 trigger1 = time = 0
-var(1) = IfElse(var(20) = 2, 55, IfElse(var(20) = 1, 45, 32))
-
-[State , VarSet]
-type = VarSet
-trigger1 = time = 0
-var(0) = var(1) - 90
-
-;無理やり合わせる（くやしい）
-[State , VarSet]
-type = VarSet
-trigger1 = time = 0
-fvar(2) = var(1) * IfElse(var(20) = 2.2, 3.55, IfElse(var(20) = 1, 2.87, 2.57))
-
-[State , VarSet]
-type = VarSet
-trigger1 = time = 0
-fvar(3) = -pos y
-
-[State , VarSet]
-type = VarSet
-trigger1 = time = 0
-fvar(5) = -1 * pos y - 50
+fvar(0) = IfElse(var(20) = 2, 55, IfElse(var(20) = 1, 45, 32))
 
 [State 200, 変数]
 type = VarSet
 trigger1 = Time = 0
 var(2) = parent,var(2)
 
-[State , 個数カウント用];
+[State , 個数カウント用]
 Type = VarSet
 trigger1 = time = 0
 var(5) = root,var(0)
@@ -5195,22 +5171,6 @@ v = 8
 
 [State 0, explod]
 type = explod
-trigger1 = time = 0
-anim = 1050
-facing = 1
-postype = p1
-pos = 0,0
-sprpriority = 2 + Var(5)
-ownpal = 0
-bindtime = -1
-RemoveTime = -1
-removeongethit = 1
-Scale = 0.5, 0.5
-IgnoreHitPause = 0
-ID = Var(8)
-
-[State 0, explod]
-type = explod
 trigger1 = Time = 0
 anim = 1271
 facing = 1
@@ -5220,7 +5180,7 @@ sprpriority = 2
 ownpal = 1
 Scale = .3 ,0.15
 removetime = -1
-Angle = var(1)
+Angle = fvar(0)
 ID = Var(8) + 1
 
 ;;;Persistents
@@ -5267,11 +5227,10 @@ trigger1 = time >= Var(6)
 value = 0
 
 ;;;回転量
-[State , ModifyExplod]
-Type = ModifyExplod
+[State , angle]
+Type = angledraw
 trigger1 = 1
-ID = Var(8)
-Angle = var(1)
+Value = fvar(0)
 
 ;;;OnHit
 [State , VarSet]
@@ -5364,6 +5323,11 @@ type = parentVarSet
 trigger1 = time = Var(6)
 var(15) = 1
 
+[State 3001, VarSet]
+type = sprpriority
+trigger1 = time = Var(6)
+value = -2
+
 ;レンズ移行
 [State 900, 4]
 type = ChangeState
@@ -5371,10 +5335,6 @@ triggerall = time > Var(6)
 trigger1 = root,stateno = 3000 && root,time = 11 ; 420
 value = 3050
 
-[State 900, 4]
-type = RemoveExplod
-trigger1 = numhelper(90000 + var(5) + 6)
-ID = Var(8)
 [State 900, 4]
 type = RemoveExplod
 trigger1 = numhelper(90000 + var(5) + 6)
@@ -5418,7 +5378,7 @@ sprpriority = 2
 ownpal = 1
 Scale = 2 ,0.15
 IgnoreHitPause = 0
-Angle = parent,var(1)
+Angle = parent,fvar(0)
 ID = 1270
 
 [State 9000, Assert]
@@ -6522,9 +6482,9 @@ ctrl = 1
 ;シャボンレンズ
 [Statedef 3000]
 type    = S
-movetype= A
+movetype = A
 physics = N
-poweradd= 0
+poweradd = 0
 velset = 0,0
 anim = 3000
 ctrl = 0
@@ -6812,21 +6772,7 @@ value = 0
 ctrl = 1
 
 ;---------------------------------------------------------------------------
-;感光（メラメラ）
-[Statedef 6300]
-type    = A
-movetype = I
-physics = N
-ctrl = 0
-velset = 0,0
-anim = 6300
-
-[State 9000, Assert]
-type = destroyself
-trigger1 = !animtime
-
-;---------------------------------------------------------------------------
-;感光（カッターから移行）
+;真っ黒に感光しろ(lens atk)
 [Statedef 3050]
 type    = A
 movetype = A
@@ -6858,16 +6804,6 @@ var(1) = 1
 [State 9000, Assert]
 type = angledraw
 trigger1 = 1
-
-[State 9000, Assert]
-type = angleset
-trigger1 = var(2) <= 1
-value = var(0)-270-(p2dist y<0)*180
-
-[State 9000, Assert]
-type = angleset
-trigger1 = var(2) = 2
-value = var(0)-90
 
 [State 9000, Assert]
 type = AssertSpecial
@@ -6915,7 +6851,21 @@ trigger2 = (root,stateno != [3000,3010]) && !(root,stateno=3011&&root,time<60)
 IgnoreHitPause = 1
 
 ;---------------------------------------------------------------------------
-;感光（光）
+;感光（メラメラ）
+[Statedef 6300]
+type    = A
+movetype = I
+physics = N
+ctrl = 0
+velset = 0,0
+anim = 6300
+
+[State 9000, Assert]
+type = destroyself
+trigger1 = !animtime
+
+;---------------------------------------------------------------------------
+;bright Line
 [Statedef 3055]
 type    = A
 movetype = I
@@ -6960,7 +6910,7 @@ trigger1 = 1
 [State 9000, Assert]
 type = angleset
 trigger1 = 1
-value = parent,var(0)-270
+value = parent,fvar(0)
 
 [State 9000, Assert]
 type = angledraw
@@ -7018,21 +6968,11 @@ var(5) = Parent,Var(5)
 type = turn
 trigger1 = facing != parent,facing
 
-[State 7000, VarSet]
-type = VarSet
-trigger1 = 1
-fvar(0) = cos(atan(parent,fvar(2)/parent,fvar(3))-(.5*pi*ifelse(parent,fvar(5) <0,-1,1)))
-
-[State 7000, VarSet]
-type = VarSet
-trigger1 = 1
-fvar(1) = sin(atan(parent,fvar(2)/parent,fvar(3))-(.5*pi*ifelse(parent,fvar(5) <0,-1,1)))
-
 [State 7000, VelSet]
 type = VelSet
-trigger1 = time = 1
-x = fvar(0)*7
-y = -(fvar(1)*7.2)
+trigger1 = time = 0
+x = Sin(parent,fvar(0)/(180/Pi))*7
+y = Cos(parent,fvar(0)/(180/Pi))*7
 
 [State 9000, Assert]
 type = AssertSpecial
@@ -7142,75 +7082,6 @@ time = 2
 IgnoreHitPause = 1
 
 [State 7000, VarSet]
-type = changeanim
-trigger1 = anim = 3010
-trigger1 = animelemtime(2) = 0
-value = 40
-
-[State 7000, VarSet]
-type = changeanim
-trigger1 = anim = 40
-trigger1 = !animtime
-value = 46
-
-;向きを逆に（端背負い＆近い）
-[State 100, 1]
-type = VarSet
-trigger1 = BackEdgeBodyDist < 30
-trigger1 = (((var(6) - Screenpos x)*facing)/30 ) < 4
-var(2) = 1
-
-[State 7000, VarSet]
-type = turn
-trigger1 = anim = 46
-trigger1 = animelemtime(1) = 1
-trigger1 = var(2) = 1
-
-[State 7000, VarSet]
-type = velset
-trigger1 = anim = 46
-trigger1 = animelemtime(1) = 1
-x = -7 * (1 + (var(2) = 1))
-y = -3
-
-[State 7000, VarSet]
-type = velset
-trigger1 = anim = 46
-x = -7
-y = -3
-persistent = 0
-[State 7000, VarSet]
-type = veladd
-trigger1 = anim = 46
-y = .3
-
-[State 7000, VarSet]
-type = changeanim
-trigger1 = anim = 46
-trigger1 = pos y >= 0 && vel y > -1
-value = 3009
-
-[State 7000, VarSet]
-type = playsnd
-trigger1 = anim = 3009
-value = 52,0
-persistent = 0
-
-[State 7000, VarSet]
-type = velset
-trigger1 = anim = 3009
-x = 0
-y = 0
-persistent = 0
-
-[State 7000, VarSet]
-type = changeanim
-trigger1 = anim = 3009
-trigger1 = !animtime
-value = 3010
-elem = 3
-
-[State 7000, VarSet]
 type = attackdist
 trigger1 = 1
 value = 0
@@ -7224,8 +7095,6 @@ value = SCA
 type = AfterImage
 triggerall = anim = 46
 trigger1 = animelemtime(1) = 0
-;trigger1 = anim = 3010
-;trigger1 = AnimElem = 3
 time = 10000
 trans = add1
 timegap = 3
@@ -7239,8 +7108,8 @@ IgnoreHitPause = 1
 
 [State 7000, VarSet]
 type = playsnd
-trigger1 = anim = 46
-trigger1 = animelemtime(1) = 0
+trigger1 = anim = 3010
+trigger1 = animelemtime(2) = 0
 value = 3005 + var(50), 20
 channel = 0
 
@@ -7256,8 +7125,8 @@ y = (var(7)-40 - pos y)/30
 type = explod
 triggerall = anim = 3010
 trigger1 = animelemtime(7) = 0
-anim = 3011
-id = 3011
+anim = 3015
+id = 3015
 facing = 1
 postype = p1
 pos = 0,0
@@ -7363,6 +7232,11 @@ sprpriority = 1
 anim = 3012
 velset = 0,0
 
+[State 3001, Width]
+type = Width
+trigger1 = 1
+edge = ifelse(time > 20, 100, time * 5), 0
+
 [State 7000, VarSet]
 type = posset
 trigger1 = !time
@@ -7371,12 +7245,17 @@ y = 0
 [State 7000, VarSet]
 type = removeexplod
 trigger1 = 1
-id = 3011
+id = 3015
 
 [State 7000, VarSet]
 type = afterimagetime
 trigger1 = !time
 time = 1
+
+[State 7000, VarSet]
+type = changeanim
+trigger1 = (p2statetype = A && p2movetype = H)
+value = anim
 
 [State 7000, VarSet]
 type = changestate
@@ -7437,7 +7316,7 @@ value = 3021
 ;---------------------------------------------------------------------------
 ;感光2（相手）
 [Statedef 3021]
-type    = U
+type    = A
 movetype = H
 physics = N
 ctrl = 0
