@@ -41,7 +41,19 @@ type = VarAdd
 triggerall = !(stateno=[800,810])
 triggerall = !(stateno=[3000,3499])
 trigger1 = movehit = 1 || projhit = 1
-var(13) = 1 + (var(8) > 0)*2
+var(13) = 1
+
+;加重加算
+[State -2,ヒット数]
+type = VarAdd
+triggerall = movehit = 1
+trigger1 = var(8)
+var(13) = 2
+[State -2,ヒット数]
+type = VarAdd
+triggerall = movehit = 1
+trigger1 = stateno = 221
+var(13) = 1
 
 [State -2,ヒット数初期化]
 type = VarSet

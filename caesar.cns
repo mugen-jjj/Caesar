@@ -3136,6 +3136,11 @@ type = ChangeState
 trigger1 = vel y > 0 && pos y >= 0
 value = 52
 
+[State 200, end]
+type = CtrlSet
+trigger1 = animelemtime(3) = 9
+value = 1
+
 ;---------------------------------------------------------------------------
 ;ジャンプB
 [Statedef 610]
@@ -3268,6 +3273,11 @@ type = ChangeState
 trigger1 = vel y > 0 && pos y >= 0
 value = 52
 
+[State 200, end]
+type = CtrlSet
+trigger1 = animelemtime(4) = 9
+value = 1
+
 ;---------------------------------------------------------------------------
 ;ジャンプC
 [Statedef 620]
@@ -3319,9 +3329,7 @@ channel = 1
 
 [State 200, ヒット定義]
 type = HitDef
-triggerall = !movecontact && !movereversed
-trigger1 = AnimElemtime(2) >= 0
-trigger1 = animelemtime(5) < 0
+trigger1 = AnimElem = 2
 attr = A, NA
 animtype  = hard
 damage    = ceil(50*  (1+((var(8) > 0)*0.5)) *fVar(10)),0
@@ -3407,6 +3415,11 @@ y = IfElse(var(8) > 0, 0.6, IfElse(Var(17), .35, Const(movement.yaccel)))
 type = ChangeState
 trigger1 = vel y > 0 && pos y >= 0
 value = 52
+
+[State 200, end]
+type = CtrlSet
+trigger1 = animelemtime(4) = 9
+value = 1
 
 ;---------------------------------------------------------------------------
 ;ジャンプC
@@ -9079,21 +9092,6 @@ trigger1 = Time = 0
 x = -1.2
 y = gethitvar(fall.yvel)
 
-[State 1000, p]
-type = posadd
-trigger1 = gethitvar(fall.yvel) = -10.1
-trigger1 = time = 1
-y = -10
-[State 1000, p]
-type = changeanim2
-trigger1 = gethitvar(fall.yvel) = -10.1
-value = 1690
-
-[State 1000, p]
-type = angledraw
-trigger1 = gethitvar(fall.yvel) = -10.1
-value = 0+(time*30)
-
 [State 5101, 1] ;Coming hit ground anim (normal)
 type = ChangeAnim
 triggerall = time = 0
@@ -9121,29 +9119,6 @@ y = 20
 type = VelAdd
 trigger1 = 1
 y = .45
-
-[State 5040, 5] ;Recover near ground
-type = SelfState
-triggerall = gethitvar(fall.yvel) != -10.1
-triggerall = gethitvar(fall.yvel) < 0
-triggerall = time >= 15
-triggerall = Vel Y > 0
-triggerall = Pos Y >= -20
-triggerall = alive
-trigger1 = canrecover
-trigger1 = Command = "recovery"
-value = 5200 ;HITFALL_RECOVER
-
-[State 5040, 6]; Recover in mid air
-type = SelfState
-triggerall = gethitvar(fall.yvel) != -10.1
-triggerall = gethitvar(fall.yvel) < 0
-triggerall = time >= 15
-triggerall = Vel Y > 0
-triggerall = alive
-trigger1 = canrecover
-trigger1 = Command = "recovery"
-value = 5210 ;HITFALL_AIRRECOVER
 
 [State 5101, 6] ;Hit ground
 type = selfState
