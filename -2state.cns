@@ -188,11 +188,11 @@ trigger1 = EnemyNear(0),life <= 0
 var(48) = 1
 IgnoreHitPause = 1
 
-[State -2, クリップボード]
+[State -2, debug]
 type     = DisplayToClipBoard
 trigger1 = 1
-text     = "power=%d, 0=%d, 9=%d hit13=%d, 2=%d"
-params   = power, var(0), var(9), var(13), var(2)
+text     = "power=%d, 0=%d, 1=%d hit13=%d, hj=%d"
+params   = power, var(0), var(1), var(13), var(17)
 IgnoreHitPause = 1
 
 
@@ -215,17 +215,17 @@ channel = 10
 ;---------------------------------------------------------------------------
 [Statedef -3]
 
-[State -2, 特殊ジャンプフラグ]
+[State -2, hj]
 type = varset
 trigger1 = stateno = 300
 trigger1 = time = 1
 var(17) = 1
 
-[State -2, 特殊ジャンプフラグ]
+[State -2, hj]
 type = varset
-trigger1 = var(17)
-trigger1 = Stateno != 300
-trigger1 = Statetype != A || MoveType = H
+triggerall = var(17)
+trigger1 = (statetype != A && stateno != 52 && stateno != 300)
+trigger2 = movetype = H
 var(17) = 0
 
 [state -3, snd]
@@ -262,7 +262,7 @@ volume = 255
 channel = 0
 
 
-[State 200, 2];バウンドSE
+[State 200, 2]
 type = Playsnd
 trigger1 = numtarget(211)
 trigger1 = target(211),Stateno = 4501
@@ -270,7 +270,7 @@ trigger1 = target(211),time = 1
 trigger1 = target(211),statetype = A
 Value = s510, 0
 
-[State 200, 2];バウンド
+[State 200, 2]
 type = Explod
 trigger1 = numtarget(211)
 trigger1 = target(211),Stateno = 4501

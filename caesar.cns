@@ -270,7 +270,7 @@ value = 52
 type    = S
 physics = S
 ctrl = 0
-anim = IfElse(var(8), 701, 47)
+anim = IfElse(var(8)||var(17), 701, 47)
 
 [State 52, 2]
 type = playsnd
@@ -289,7 +289,7 @@ y = 0
 
 [State 52, 3]
 type = CtrlSet
-trigger1 = !var(8)
+trigger1 = !var(8) && !var(17)
 trigger1 = Time = 3
 value = 1
 
@@ -2335,38 +2335,38 @@ var(4)= 0
 [State 200, 変数]
 type = VarSet
 triggerall = movecontact
-trigger1 = AnimElemTime(2) >= 1
+trigger1 = AnimElemTime(3) >= 1
 var(4)= 1
 IgnoreHitPause = 1
 
 [State , vel]
 type = VelSet
-trigger1 = time = 0
+trigger1 = time = 6
 x = 5
 
 [State , vel]
 type = velset
-trigger1 = time = 11
+trigger1 = time = 17
 x = 0
 y = 0
 [State , vel]
 type = posset
-trigger1 = time = 11
+trigger1 = time = 17
 y = 0
 
 [State ,Offset]
 Type = Offset
-Trigger1 = Time <= 11
-Y = -(Time) * (3 - ((Time - 1) * 0.3))
+Trigger1 = Time = [6, 17]
+Y = -(Time - 6) * (1.5 - ((Time - 6) * 0.15))
 
 [State , se]
 type = playsnd
-trigger1 = time = 11
+trigger1 = time = 17
 value = 52,0
 
 [State 200, se]
 type = PlaySnd
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 value = 3, 3
 channel = 1
 
@@ -2378,7 +2378,7 @@ channel = 0
 
 [State , ヒット定義]
 type = HitDef
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 attr = S, NA
 animtype  = medium
 damage    = ceil(47*fVar(10)),0
@@ -2581,8 +2581,8 @@ ground.type = High
 ground.slidetime = 12
 guard.slidetime = 10
 ground.hittime  = 10
-ground.velocity = -2,-12 + fVar(20)
-air.velocity = -2,-8 + fVar(20)
+ground.velocity = -2,-11 + fVar(20)
+air.velocity = -2,-11 + fVar(20)
 yaccel = 0.45
 getpower = 60,0
 givepower = 30,0
@@ -2617,36 +2617,41 @@ velset = 0,0
 anim = 300
 sprpriority = 2
 
-[State 600, 特殊]
+[State 600, anim]
 type = ChangeAnim
 trigger1 = Anim = 300
 trigger1 = AnimTime = 0
 Value = 301
 
-[State 600, 特殊]
+[State 600, A]
 type = StateTypeSet
 trigger1 = Anim = 301
 StateType = A
 
-[State 600, 特殊]
+[State 600, vel]
+type = varset
+trigger1 = time = 0
+sysvar(0) = IfElse(command = "holdfwd", 1, IfElse(command = "holdback", -1, 0))
+
+[State 600, vel]
 type = velset
 trigger1 = Anim = 301
 trigger1 = AnimElemTime(1) = 1
-x = 2.5
+x = IfElse(sysvar(0) = 1, 3, IfElse(sysvar(0) = -1, -2.5, 0))
 y = -12
 
-[State 600, 特殊]
+[State 600, vel]
 type = velmul
 trigger1 = Anim = 301
 trigger1 = Time = [4, 12]
 x = .9
 y = .9
 
-[State 600, 特殊]
+[State 600, vel]
 type = veladd
 trigger1 = Anim = 301
 trigger1 = AnimElemTime(1) > 12
-y = .35
+y = .3
 
 [State 2100, 煙1垂直]
 type = Explod
@@ -2732,31 +2737,7 @@ type = ChangeState
 trigger1 = Anim = 301
 trigger1 = Vel Y > 0
 trigger1 = Pos Y >= 0
-value = 305
-
-;---------------------------------------------------------------------------
-;特殊ジャンプ end
-[Statedef 305]
-type    = S
-movetype= I
-physics = N
-poweradd= 0
-ctrl = 0
-velset = 0,0
-anim = 305
-sprpriority = 2
-
-[State 200, ステート変更]
-type = PosSet
-trigger1 = !Time
-y = 0
-
-
-[State 200, ステート変更]
-type = ChangeState
-trigger1 = Anim = 305
-Value = 0
-Ctrl = 1
+value = 52
 
 ;---------------------------------------------------------------------------
 ;屈A
@@ -2954,7 +2935,7 @@ channel = 1
 [State 200, 音を鳴らす]
 type = velset
 trigger1 = AnimElem = 3
-x = 9
+x = 6
 [State 200, 音を鳴らす]
 type = VelMul
 trigger1 = Animelemtime(4) >= 1
@@ -2965,7 +2946,7 @@ type = HitDef
 trigger1 = AnimElem = 3
 attr = C, NA
 animtype  = hard
-damage    = ceil(60*fVar(10)),0
+damage    = ceil(55*fVar(10)),0
 guardflag = L
 pausetime = 11,11
 sparkno = s6002
@@ -3513,6 +3494,7 @@ trigger1 = !Target,IsHelper
 value = 5113
 id = 625
 Persistent = 0
+ignorehitpause = 1
 
 [State 600, 特殊]
 type = StateTypeSet
@@ -4488,16 +4470,16 @@ sprpriority = 2
 ;fvar(3)        p2dist y
 
 ;;;Initial
-[State , 個数カウント用];
-Type = VarSet
-trigger1 = time = 0
-var(5) = root,var(0)
-IgnoreHitPause = 1
-
 [State , 個数カウントアップ];
 Type = parentVarAdd
 trigger1 = time = 0
 var(0) = 1
+IgnoreHitPause = 1
+
+[State , 個数カウント用];
+Type = VarSet
+trigger1 = time = 0
+var(5) = root,var(0)
 IgnoreHitPause = 1
 
 [State , count]
@@ -4569,11 +4551,11 @@ attr = SCA, NP, SP, HP
 time = -1
 [State , hitby]
 type = HitBy
-trigger1 = root,stateno != 3000
+trigger1 = root,stateno != 3000 || parent,movetype = H
 value = SCA,AP
 [State , hitby]
 type = NotHitBy
-trigger1 = root,stateno = 3000
+trigger1 = root,stateno = 3000 && parent,movetype != H
 value = SCA
 
 ;;;Move
@@ -4709,9 +4691,9 @@ trigger1 = var(2) < 10
 trigger1 = var(4) = 0
 attr = S, SP
 animtype = medium
-damage = ceil(18*root,fVar(10)),ceil(18*.20*root,fVar(10))
+damage = ceil(22*root,fVar(10)),ceil(22*.20*root,fVar(10))
 guardflag = MA
-pausetime = 5,5
+pausetime = 9,9
 sparkno = s6010
 guard.sparkno = s6040
 sparkxy = 20,0
@@ -4719,10 +4701,10 @@ hitsound = s15, 1
 guardsound = s10, 0
 priority = 4, Hit
 ground.type = high
-ground.slidetime = 15
-ground.hittime = 15
-air.hittime = 15
-guard.ctrltime = 15
+ground.slidetime = 16
+ground.hittime = 16
+air.hittime = 16
+guard.ctrltime = 16
 ground.velocity = -3,0
 guard.velocity = -1.5
 ground.velocity = -3,0
@@ -4832,7 +4814,7 @@ value = -2
 [State 900, 4]
 type = ChangeState
 triggerall = time > Var(6)
-trigger1 = root,stateno = 3000 && root,time = 11 ; 420
+trigger1 = root,stateno = 3000 && parent,movetype != H && root,time = 11 ; 420
 value = 3050
 
 [State 0, explod]
@@ -4851,11 +4833,11 @@ supermovetime = 9999999
 
 [State 900, 4]
 type = RemoveExplod
-trigger1 = numhelper(90000 + var(5) + 6)
+trigger1 = numhelper(90000 + var(5) + 5)
 ID = Var(8)
 [State 900, 4]
 type = destroyself
-trigger1 = numhelper(90000 + var(5) + 6)
+trigger1 = numhelper(90000 + var(5) + 5)
 
 ;---------------------------------------------------------------------------
 ;カッター相殺
@@ -5125,16 +5107,16 @@ type = VarSet
 trigger1 = Time = 0
 var(2) = parent,var(2)
 
-[State , 個数カウント用]
-Type = VarSet
-trigger1 = time = 0
-var(5) = root,var(0)
-IgnoreHitPause = 1
-
 [State , 個数カウントアップ];
 Type = parentVarAdd
 trigger1 = time = 0
 var(0) = 1
+IgnoreHitPause = 1
+
+[State , 個数カウント用]
+Type = VarSet
+trigger1 = time = 0
+var(5) = root,var(0)
 IgnoreHitPause = 1
 
 [State , count]
@@ -5226,11 +5208,11 @@ attr = SCA, NP, SP, HP
 time = -1
 [State , hitby]
 type = HitBy
-trigger1 = root,stateno != 3000
+trigger1 = root,stateno != 3000 || parent,movetype = H
 value = SCA,AP
 [State , hitby]
 type = NotHitBy
-trigger1 = root,stateno = 3000
+trigger1 = root,stateno = 3000 && parent,movetype != H
 value = SCA
 
 ;;;Move
@@ -5302,7 +5284,7 @@ ground.velocity = -3,0
 guard.velocity = -1.5
 ground.velocity = -3,0
 guard.velocity = -1.5
-air.velocity = -2,-6.5 + root,fvar(20)
+air.velocity = -2,-7 + root,fvar(20)
 airguard.velocity = -3,-2
 yaccel = 0.45
 getpower = 20,0
@@ -5345,17 +5327,17 @@ value = -2
 [State 900, 4]
 type = ChangeState
 triggerall = time > Var(6)
-trigger1 = root,stateno = 3000 && root,time = 11 ; 420
+trigger1 = root,stateno = 3000 && parent,movetype != H && root,time = 11 ; 420
 value = 3050
 
 [State 900, 4]
 type = RemoveExplod
-trigger1 = numhelper(90000 + var(5) + 6)
+trigger1 = numhelper(90000 + var(5) + 5)
 trigger2 = time = var(6) - 30
 ID = Var(8) + 1
 [State 900, 4]
 type = destroyself
-trigger1 = numhelper(90000 + var(5) + 6)
+trigger1 = numhelper(90000 + var(5) + 5)
 
 ;---------------------------------------------------------------------------
 ;len atk
@@ -6377,7 +6359,7 @@ movetype= I
 physics = N
 ctrl = 0
 velset = 0,0
-anim = 1305
+anim = 1305 + (var(17))*2
 sprpriority = 1
 
 [State 200, ステート変更]
@@ -6519,14 +6501,8 @@ trigger1 = 1
 value = 0
 
 [State 0, vel]
-type = playerpush
-trigger1 = time > 44
-trigger1 = var(1)
-value = 0
-
-[State 0, vel]
 type = nothitby
-trigger1 = time <= 84
+trigger1 = time <= 200
 trigger2 = var(1)
 value = SCA
 time = 1
@@ -6542,8 +6518,8 @@ ignorehitpause = 1
 [State 0, super]
 type = superpause
 trigger1 = time = 11
-time = 60
-movetime = 60
+time = 200-11
+movetime = 200-11
 anim = -1
 sound = -1;s0,21
 darken = 0
@@ -6592,24 +6568,81 @@ time = 1
 ignorehitpause = 1
 
 [State 1000, 音を鳴らす]
+type = PlaySnd
+trigger1 = Time = 11
+value = 3000 + var(50), 0 + (Random%2)
+channel = 0
+
+[State 1000, ステート変更]
+type = ChangeState
+trigger1 = time > 71;11
+trigger1 = var(1)
+value = 3001
+
+;外した
+[State 1000, ステート変更]
+type = playsnd
+trigger1 = !animtime
+value = 3005 + var(50), 0 + (random%2)
+channel = 0
+
+[State 1000, ステート変更]
+type = ChangeState
+trigger1 = !animtime
+value = 0
+ctrl = 1
+
+;-----------------------------------------------------------------------------------------------
+;シャボンレンズ(hit)
+[Statedef 3001]
+type    = S
+movetype = A
+physics = N
+poweradd = 0
+velset = 0,0
+anim = 3001
+
+[State 30500, flag]
+Type = AssertSpecial
+Trigger1 = 1
+flag = TimerFreeze
+
+[State 0, vel]
+type = attackdist
+trigger1 = 1
+value = 0
+
+[State 0, vel]
+type = playerpush
+trigger1 = 1
+value = 0
+
+[State 1000, inc]
 type = VarAdd
 trigger1 = var(1)
 var(1) = 1
 IgnoreHitPause = 1
+
+[State 3000,03]
+type = BGPalfx
+trigger1 = 1
+mul = 0,0,0
+time = 1
+ignorehitpause = 1
 
 [State 0, explod]
 type = VarSet
 triggerall = NumEnemy
 triggerall = Enemy(0),stateno = 3020
 trigger1 = numhelper(3056)
-trigger1 = var(1) = 60
+trigger1 = time = 0
 var(6) = Ceil(Enemy(0),ScreenPos X)
 [State 0, explod]
 type = VarSet
 triggerall = NumEnemy > 1
 triggerall = Enemy(1),stateno = 3020
 trigger1 = numhelper(3056)
-trigger1 = var(1) = 60
+trigger1 = time = 0
 var(6) = Ceil(Enemy(1),ScreenPos X)
 
 [State 0, explod]
@@ -6617,14 +6650,14 @@ type = VarSet
 triggerall = NumEnemy
 triggerall = Enemy(0),stateno = 3020
 trigger1 = numhelper(3056)
-trigger1 = var(1) = 60
+trigger1 = time = 0
 var(7) = Ceil(Enemy(0),Pos Y)
 [State 0, explod]
 type = VarSet
 triggerall = NumEnemy > 1
 triggerall = Enemy(1),stateno = 3020
 trigger1 = numhelper(3056)
-trigger1 = var(1) = 60
+trigger1 = time = 0
 var(7) = Ceil(Enemy(1),Pos Y)
 
 [State 0, explod]
@@ -6632,17 +6665,17 @@ type = explod
 triggerall = NumEnemy
 triggerall = Enemy(0),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -80
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 [State 0, explod]
@@ -6650,17 +6683,17 @@ type = explod
 triggerall = NumEnemy
 triggerall = Enemy(0),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -40
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 [State 0, explod]
@@ -6668,17 +6701,17 @@ type = explod
 triggerall = NumEnemy
 triggerall = Enemy(0),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -20
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 
@@ -6687,17 +6720,17 @@ type = explod
 triggerall = NumEnemy > 1
 triggerall = Enemy(1),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -80
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 [State 0, explod]
@@ -6705,17 +6738,17 @@ type = explod
 triggerall = NumEnemy > 1
 triggerall = Enemy(1),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -40
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 [State 0, explod]
@@ -6723,66 +6756,42 @@ type = explod
 triggerall = NumEnemy > 1
 triggerall = Enemy(1),stateno = 3020
 triggerall = numhelper(3056)
-trigger1 = var(1) = 60
-trigger2 = var(1) = 120
+trigger1 = time = 0
 anim = 6300
 id = 6300
 facing = facing
 postype = p2
 pos = 0, -20
 ownpal = 1
-scale = .5,.5
+scale = .25,.25
 random = 30,0
 sprpriority = 2
+removetime = -1
 pausemovetime = 9999999
 supermovetime = 9999999
 
-[State 1000, ステート変更]
-type = ChangeState
-trigger1 = var(1) = 340 + 0
-value = 3010
-
 [State 1000, 音を鳴らす]
 type = PlaySnd
-trigger1 = Time = 11
-value = 3000 + var(50), 0 + (Random%2)
-channel = 0
-
-[State 1000, 音を鳴らす]
-type = PlaySnd
-trigger1 = var(1)
-trigger1 = Time = 90
+trigger1 = Time = 30
 value = 3000 + var(50), 10
 channel = 0
 
 [State 1000, 音を鳴らす]
 type = PlaySnd
-trigger1 = var(1)
-trigger1 = Time = 170
+trigger1 = Time = 110
 value = 3000 + var(50), 11
 channel = 0
 
 [State 1000, 音を鳴らす]
 type = PlaySnd
-trigger1 = var(1)
-trigger1 = Time = IFElse(!var(50), 340, 400)
+trigger1 = Time = IFElse(!var(50), 280, 340)
 value = 3000 + var(50), 12
-channel = 0
-
-;外した
-[State 1000, ステート変更]
-type = playsnd
-trigger1 = !var(1)
-trigger1 = time = 99
-value = 3005 + var(50), 0 + (random%2)
 channel = 0
 
 [State 1000, ステート変更]
 type = ChangeState
-trigger1 = !var(1)
-trigger1 = time = 99
-value = 0
-ctrl = 1
+trigger1 = time = 340
+value = 3010
 
 ;---------------------------------------------------------------------------
 ;真っ黒に感光しろ(lens atk)
@@ -6794,9 +6803,6 @@ ctrl = 0
 velset = 0,0
 sprpriority = 5
 
-;var(10)	ヒットフラグ
-
-
 [State , hitby]
 type = NotHitBy
 trigger1 = 1
@@ -6807,12 +6813,6 @@ Type = ModifyExplod
 Trigger1 = !time
 ID = Var(8)
 Trans = None
-
-[State 9000, Assert]
-type = parentVarSet
-trigger1 = var(10)
-trigger1 = !root,var(1)
-var(1) = 1
 
 [State 9000, Assert]
 type = angledraw
@@ -6854,12 +6854,12 @@ IgnoreHitPause = 1
 
 [State 900, 4]
 type = RemoveExplod
-trigger1 = root,stateno = 3000 && root,time = 99 && !root,var(1)
+trigger1 = root,stateno = 3000 && root,time = 200
 trigger2 = (root,stateno != [3000,3010]) && !(root,stateno=3011&&root,time<60)
 ID = Var(8)
 [State 9000, Assert]
 type = destroyself
-trigger1 = root,stateno = 3000 && root,time = 99 && !root,var(1)
+trigger1 = root,stateno = 3000 && root,time = 200
 trigger2 = (root,stateno != [3000,3010]) && !(root,stateno=3011&&root,time<60)
 IgnoreHitPause = 1
 
@@ -6908,7 +6908,7 @@ flag = Invisible
 [State 9000, zAssert]
 type = changeanim
 trigger1 = anim != 3050
-trigger1 = (parent,stateno = 3050)
+trigger1 = (parent,stateno = 3050 && parent,movetype != H)
 value = 3050
 
 [State 9000, zAssert]
@@ -6926,6 +6926,13 @@ trigger1 = 1
 value = parent,fvar(0)
 
 [State 9000, Assert]
+type = Playsnd
+trigger1 = var(5) = root,var(0)
+trigger1 = anim = 3050
+trigger1 = root,stateno = 3000 && root,time = 11
+value = 3000, 7
+
+[State 9000, Assert]
 type = angledraw
 triggerall = anim = 3050
 trigger1 = root,stateno = 3000 && root,time = [11, 23]
@@ -6934,7 +6941,7 @@ scale = 1.5 - (root,time - 11) * 0.11 , 1
 type = angledraw
 triggerall = anim = 3050
 trigger1 = root,stateno = 3000 && root,time > 23
-trigger2 = root,stateno = [3010, 3011]
+trigger2 = root,stateno = [3001, 3011]
 scale = 0.33 , 1
 
 [State 1100, Velocity]
@@ -6954,8 +6961,8 @@ IgnoreHitPause = 1
 
 [State 9000, Assert]
 type = destroyself
-trigger1 = numhelper(90000 + var(5) + 6)
-trigger2 = root,stateno = 3000 && root,time = 512 && !root,var(1)
+trigger1 = numhelper(90000 + var(5) + 5)
+trigger2 = root,stateno = 3000 && root,time = 200
 trigger3 = (root,stateno != [3000,3010])
 trigger3 = !(root,stateno=3011&&root,time<60) && (parent,stateno != 1050&&parent,stateno != 1250)
 IgnoreHitPause = 1
@@ -6975,7 +6982,7 @@ sprpriority = 4
 [State 9000, zAssert]
 type = VarSet
 trigger1 = Time = 0
-var(5) = Parent,Var(5)
+var(5) = root,Var(0)
 
 [State 1100, Velocity]
 type = turn
@@ -7022,14 +7029,10 @@ kill = 0
 
 [State 9000, Assert]
 type = Playsnd
-trigger1 = time = 1
-value = 3000, 5
-
-[State 9000, Assert]
-type = Playsnd
+triggerall = var(5) = root,var(0)
 trigger1 = numtarget
 trigger1 = target,stateno = 3020
-trigger1 = target,time = 60
+trigger1 = movehit = 1
 value = 3000, 6
 channel = 5
 [State 9000, Assert]
@@ -7045,11 +7048,11 @@ trigger1 = numtarget
 trigger1 = target,facing = root,facing
 
 [State 9000, Assert]
-type = parentVarSet
+type = Null
+trigger1 = !root,var(1)
 trigger1 = numtarget
 trigger1 = target,stateno = 3020
-var(10) = 1
-IgnoreHitPause = 1
+trigger1 = root,cond(1, var(1):= 1, 0)
 
 [State 9000, Assert]
 type = VarSet
@@ -7066,10 +7069,8 @@ IgnoreHitPause = 1
 
 [State 9000, Assert]
 type = destroyself
-trigger1 = root,stateno = 3000 && root,time = 512 && !root,var(1)
+trigger1 = root,stateno = 3000 && root,time = 200
 trigger2 = (root,stateno != [3000,3010])
-flag = noshadow
-IgnoreHitPause = 1
 
 ;---------------------------------------------------------------------------
 ;波紋蹴りでとどめ
@@ -7319,6 +7320,15 @@ trigger1 = !(time%3)
 trigger1 = time <= 490
 value = -1
 kill = 0
+
+[State -2,KO]
+type = PalFX
+trigger1 = 1
+time = 1
+add = ceil(time/2), ceil(time/2), 0
+mul = 255 - ceil(time/2.5), 255 - ceil(time/2.5), 255 - ceil(time/2.5)
+;color = 255 - ceil(time/3);
+IgnoreHitPause = 1
 
 [State 7000, VarSet]
 type = changestate
@@ -8364,7 +8374,7 @@ channel = 0
 [State 2101]
 type = changestate
 trigger1 = pos y >= 0
-value = 1305
+value = 52
 
 ;------------------------------------------------------------------------------
 ;shabon1

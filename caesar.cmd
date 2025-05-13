@@ -135,7 +135,17 @@ time = 15
 [Command]
 name = "ExJump"
 command = D, U
-time = 15
+time = 12
+
+[Command]
+name = "ExJump"
+command = D, UF
+time = 12
+
+[Command]
+name = "ExJump"
+command = D, UB
+time = 12
 
 ;------------------------------------------------------------------------------
 ;-| キー２回連続入力 |---------------------------------------------------------
@@ -404,7 +414,7 @@ triggerall = roundstate = 2
 triggerall = statetype = A
 triggerall = p2bodydist y = [0, 80]
 trigger1 = (ctrl || (stateno = [120,149])) && random < 50 && p2movetype != H
-trigger2 = Stateno = 300 && Anim = 301 && Time >= 12 && random < 80 && vel y > 2
+trigger2 = Stateno = 300 && Anim = 301 && Time >= 9 && random < 80 && vel y > 2
 value = 2200
 
 ;6b
@@ -527,7 +537,7 @@ triggerall = AILevel && roundstate = 2
 triggerall = statetype = A
 triggerall = random < 240 && p2bodydist x < 100 + (p2movetype=H)*24 && p2bodydist y > -40 - (p2movetype=H)*24
 trigger1 = (ctrl || (stateno = [120,149]))
-trigger2 = Stateno = 300 && Anim = 301 && Time >= 12 && random < 80
+trigger2 = Stateno = 300 && Anim = 301 && Time >= 9 && random < 80
 
 [State -1, ジャンプb]
 type = ChangeState
@@ -696,7 +706,7 @@ trigger1 = ctrl
 trigger2 = (stateno = 600||stateno = 610||stateno = 620 || stateno = 625) && var(4)
 trigger3 = (stateno = 1300) && var(4)
 trigger4 = (stateno = 2200) && var(4)
-trigger5 = Stateno = 300 && Anim = 301 && Time >= 12
+trigger5 = Stateno = 300 && Anim = 301 && Time >= 9
 value = 3202
 
 ;==============================================================================
@@ -822,7 +832,7 @@ triggerall = command = "b"
 triggerall = !var(8)
 trigger1 = ctrl
 trigger2 = (stateno = [600, 699]) && var(4)
-trigger3 = Stateno = 300 && Anim = 301 && Time >= 12
+trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 value = 2200
 
 ;==============================================================================
@@ -955,7 +965,7 @@ triggerall = AILevel = 0
 triggerall = command = "x"
 triggerall = statetype = A
 trigger1 = ctrl
-trigger2 = Stateno = 300 && Anim = 301 && Time >= 12
+trigger2 = Stateno = 300 && Anim = 301 && Time >= 9
 
 [State -1, ジャンプb]
 type = ChangeState
@@ -968,7 +978,7 @@ trigger2 = command = "y"
 trigger2 = var(8) = 0
 trigger2 = stateno = 600 && var(4)
 trigger3 = command = "y"
-trigger3 = Stateno = 300 && Anim = 301 && Time >= 12
+trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 trigger4 = (command = "y" || command = "holdy") || ((command = "x" || command = "holdx") && stateno = 700)
 trigger4 = stateno = 700 && time >= 20
 
@@ -983,7 +993,7 @@ trigger2 = command = "z"
 trigger2 = var(8) = 0
 trigger2 = (stateno = [600,610]) && var(4)
 trigger3 = command = "z"
-trigger3 = Stateno = 300 && Anim = 301 && Time >= 12
+trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 trigger4 = (command = "z" || command = "holdz")
 trigger4 = stateno = 700 && time >= 20
 
