@@ -660,9 +660,8 @@ triggerall = command = "c"
 triggerall = power >= 3000
 triggerall = var(16)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 1000 || stateno = 1100 || stateno = 1200 || stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 10]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 3000
 
 ;波紋の片鱗
@@ -674,9 +673,8 @@ triggerall = statetype != A
 triggerall = command = "236aa" || command = "236b"
 triggerall = power >= 1000
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 1000 || stateno = 1100 || stateno = 1200 || stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 10]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 3100
 
 ;奥義・波紋シャボンランチャー
@@ -688,9 +686,8 @@ triggerall = statetype != A
 triggerall = command = "214aa" || command = "214b"
 triggerall = power >= 1000
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 1000 || stateno = 1100 || stateno = 1200 || stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 10]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 3200
 
 ;奥義・波紋シャボンランチャー(Air)
@@ -703,10 +700,8 @@ triggerall = command = "214aa" || command = "214b"
 triggerall = power >= 1000
 triggerall = !var(8)
 trigger1 = ctrl
-trigger2 = (stateno = 600||stateno = 610||stateno = 620 || stateno = 625) && var(4)
-trigger3 = (stateno = 1300) && var(4)
-trigger4 = (stateno = 2200) && var(4)
-trigger5 = Stateno = 300 && Anim = 301 && Time >= 9
+trigger2 = var(4) = [1, 10]
+trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 value = 3202
 
 ;==============================================================================
@@ -720,9 +715,8 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "623x" || command = "623y" || command = "623z"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 5]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 1300
 
 ;シャボンカッター
@@ -733,9 +727,8 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "236x" || command = "236y"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 5]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 1000
 
 ;シャボンレンズ
@@ -747,9 +740,8 @@ triggerall = statetype != A
 triggerall = command = "22x" || command = "22y" || command = "22z"
 triggerall = var(18) = 0
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 5]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 1200
 
 ;シャボンカッターグライディン
@@ -760,9 +752,8 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "236z"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = (stateno = 2000 || stateno = 2101) && var(4)
-trigger4 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 5]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 1100
 
 ;==============================================================================
@@ -790,11 +781,23 @@ trigger1 = command = "BB"
 [State -1, assault]
 type = ChangeState
 value = 700
+triggerall = !AILevel
+triggerall = (command = "x" && command = "y")
 triggerall = command = "holdfwd"
-triggerall = (command = "x" && command = "y") || (command = "b")
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
+trigger2 = (var(4) = [1, 4])
+;チェインはdef 710から
+
+[State -1, break]
+type = ChangeState
+value = 710
+triggerall = !AILevel
+triggerall = (command = "x" && command = "y")
+triggerall = command = "holdback"
+triggerall = statetype != A
+trigger1 = ctrl
+trigger2 = var(4) = [1, 4]
 
 ;5S
 [State -1, 1200]
@@ -805,8 +808,8 @@ triggerall = statetype != A
 triggerall = command = "b"
 triggerall = command != "holddown"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 4]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 2100
 
 ;2S
@@ -818,8 +821,8 @@ triggerall = statetype != A
 triggerall = command = "b"
 triggerall = command = "holddown"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
-trigger3 = stateno = 52 && var(8) > 1
+trigger2 = var(4) = [1, 4]
+trigger3 = stateno = 52 && var(8) >= 10
 value = 2300
 
 ;JS
@@ -831,7 +834,7 @@ triggerall = statetype = A
 triggerall = command = "b"
 triggerall = !var(8)
 trigger1 = ctrl
-trigger2 = (stateno = [600, 699]) && var(4)
+trigger2 = var(4) = [1, 4]
 trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 value = 2200
 
@@ -870,7 +873,7 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "ExJump"
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && var(4)
+trigger2 = var(4) = [1, 4]
 value = 300
 
 ;6b
@@ -882,7 +885,7 @@ triggerall = command = "y" && command = "holdfwd"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 210 || stateno = 220 || stateno = 400 || stateno = 410 || stateno = 420) && var(4)
+trigger2 = var(4) = [1, 3]
 
 ;6c
 [State -1, 6c]
@@ -893,12 +896,12 @@ triggerall = command = "z" && command = "holdfwd"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 400 || stateno = 210 || stateno = 410 || stateno = 220) && var(4)
+trigger2 = var(4) = [1, 3]
 
 ;==============================================================================
 ; 通常攻撃技
 ;==============================================================================
-[State -1, 立ちa]
+[State -1, 5a]
 type = ChangeState
 value = 200
 triggerall = AILevel = 0
@@ -906,9 +909,9 @@ triggerall = command = "x"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 400) && var(4)
+trigger2 = var(4) = 1
 
-[State -1, 立ちb]
+[State -1, 5b]
 type = ChangeState
 value = 210
 triggerall = AILevel = 0
@@ -916,9 +919,9 @@ triggerall = command = "y"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 400) && var(4)
+trigger2 = var(4) = 1
 
-[State -1, 立ちc]
+[State -1, 5c]
 type = ChangeState
 value = 220
 triggerall = AILevel = 0
@@ -926,9 +929,9 @@ triggerall = command = "z"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 210 || stateno = 400 || stateno = 410) && var(4)
+trigger2 = var(4) = [1, 2]
 
-[State -1, 屈c]
+[State -1, 2a]
 type = ChangeState
 value = 400
 triggerall = AILevel = 0
@@ -936,9 +939,9 @@ triggerall = command = "x"
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200||stateno = 400) && var(4)
+trigger2 = var(4) = 1
 
-[State -1, 屈c]
+[State -1, 2b]
 type = ChangeState
 value = 410
 triggerall = AILevel = 0
@@ -946,9 +949,9 @@ triggerall = command = "y"
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 400) && var(4)
+trigger2 = var(4) = 1
 
-[State -1, 屈c]
+[State -1, 2c]
 type = ChangeState
 value = 420
 triggerall = AILevel = 0
@@ -956,9 +959,9 @@ triggerall = command = "z"
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = 200 || stateno = 210 || stateno = 400 || stateno = 410) && var(4)
+trigger2 = var(4) = [1, 2]
 
-[State -1, ジャンプa]
+[State -1, ja]
 type = ChangeState
 value = 600
 triggerall = AILevel = 0
@@ -967,7 +970,7 @@ triggerall = statetype = A
 trigger1 = ctrl
 trigger2 = Stateno = 300 && Anim = 301 && Time >= 9
 
-[State -1, ジャンプb]
+[State -1, jb]
 type = ChangeState
 value = 610
 triggerall = !AILevel
@@ -976,13 +979,13 @@ trigger1 = command = "y"
 trigger1 = ctrl
 trigger2 = command = "y"
 trigger2 = var(8) = 0
-trigger2 = stateno = 600 && var(4)
+trigger2 = var(4) = 1
 trigger3 = command = "y"
 trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 trigger4 = (command = "y" || command = "holdy") || ((command = "x" || command = "holdx") && stateno = 700)
-trigger4 = stateno = 700 && time >= 20
+trigger4 = stateno = 700 && time >= 17
 
-[State -1, ジャンプc]
+[State -1, jc]
 type = ChangeState
 value = 620
 triggerall = !AILevel
@@ -991,11 +994,11 @@ trigger1 = command = "z"
 trigger1 = ctrl
 trigger2 = command = "z"
 trigger2 = var(8) = 0
-trigger2 = (stateno = [600,610]) && var(4)
+trigger2 = var(4) = [1, 2]
 trigger3 = command = "z"
 trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 trigger4 = (command = "z" || command = "holdz")
-trigger4 = stateno = 700 && time >= 20
+trigger4 = stateno = 700 && time >= 17
 
 [State -1, ジャンプ8c2]
 type = ChangeState
@@ -1004,7 +1007,7 @@ triggerall = AILevel = 0
 triggerall = command = "z"
 triggerall = statetype = A
 trigger1 = var(8) = 0
-trigger1 = Stateno = 620 && var(4)
+trigger1 = Stateno = 620 && var(4) = 3
 trigger1 = AnimElemTime(4) < 0
 
 ;------------------------------------------------------------------------------
