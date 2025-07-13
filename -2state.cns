@@ -231,8 +231,8 @@ IgnoreHitPause = 1
 [State -2, debug]
 type     = DisplayToClipBoard
 trigger1 = 1
-text     = "power=%d, 0=%d, 1=%d hit13=%d, hj=%d"
-params   = power, var(0), var(1), var(13), var(17)
+text     = "power=%d, 0=%d, 4=%d hit13=%d, hj=%d"
+params   = power, var(0), var(4), var(13), var(17)
 IgnoreHitPause = 1
 
 [State -3, GetHurt Sound]
