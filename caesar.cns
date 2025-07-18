@@ -2162,7 +2162,7 @@ ctrl = 1
 ;立ちA
 [Statedef 200]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 ctrl = 0
@@ -3382,7 +3382,7 @@ value = 1
 ;ジャンプC2
 [Statedef 625]
 type    = A
-movetype= A
+movetype = A
 physics = N
 poweradd = 0
 ctrl = 0
@@ -3459,9 +3459,9 @@ ignorehitpause = 1
 
 [State 600, 特殊]
 type = StateTypeSet
-trigger1 = AnimElemTime(5) >= 0
+trigger1 = AnimElemTime(7) >= 0
 statetype = A
-movetype= I
+movetype = I
 
 [State 600, vel]
 type = velset
@@ -3741,7 +3741,7 @@ channel = 0
 [State 0, snd]
 type = playsnd
 trigger1 = !time
-value = 715,0
+value = 710, 5
 
 [State 200, se]
 type = PlaySnd
@@ -4128,7 +4128,7 @@ channel = 10
 [State 0, snd]
 type = playsnd
 trigger1 = !time
-value = 715,0
+value = 720, 5
 
 [State 0, super]
 type = pause
@@ -4663,7 +4663,7 @@ ctrl = 1
 ;シャボンカッター
 [Statedef 1000]
 type    = S
-movetype= A
+movetype = A
 physics = N
 juggle  = 4
 poweradd= 50
@@ -5234,7 +5234,7 @@ trigger1 = AnimTime = 0
 ;シャボンカッターグライディン
 [Statedef 1100]
 type    = C
-movetype= A
+movetype = A
 physics = N
 poweradd= 50
 velset = 0,0
@@ -6022,7 +6022,7 @@ ctrl = 1
 ;シャボンバリアー end
 [Statedef 2101]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 velset = 0,0
@@ -6061,7 +6061,7 @@ ctrl = 1
 ;シャボンバリアー(飛び道具)
 [Statedef 2150]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 velset = 0,0
@@ -6183,7 +6183,7 @@ value = 2130
 ;シャボンバリアー(束縛)
 [Statedef 2110]
 type    = S
-movetype= A
+movetype = A
 physics = N
 anim = 2160
 ctrl = 0
@@ -7656,7 +7656,7 @@ value = 5100
 ;波紋の片鱗
 [Statedef 3100]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 velset = 0,0
@@ -7792,7 +7792,7 @@ ctrl = 1
 ;波紋の片鱗2
 [Statedef 3110]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 velset = 0,0
@@ -7923,7 +7923,7 @@ value = 5100
 ;奥義・波紋シャボンランチャー
 [Statedef 3200]
 type    = S		;S(立ち) C(しゃがみ) A（空中） L(倒れ) U(前のステートと一緒)
-movetype= A		;A(攻撃) I（通常動作）H（ダメージ）U(前のステートと一緒)
+movetype = A		;A(攻撃) I（通常動作）H（ダメージ）U(前のステートと一緒)
 physics = N		;S 立っている時の摩擦係数  C しゃがんでいる時の摩擦係数  A 重力加速度  N いずれの影響も受けない
 velset = 0,0		;ステートの移動速度を設定します。(X軸方向の速度,Y軸方向の速度)と記述します。
 ctrl = 0		;キー入力をうけつけるかどうかを設定します。0(受け付けない) 1(受け付ける)
@@ -8019,7 +8019,7 @@ value = 3201
 ;その２
 [Statedef 3201]
 type    = A
-movetype= A
+movetype = A
 physics = N
 anim = 3210
 ctrl = 0
@@ -8289,7 +8289,7 @@ value = 3220
 ;その２(Air ver)
 [Statedef 3202]
 type    = A
-movetype= A
+movetype = A
 physics = N
 anim = 3211
 ctrl = 0
@@ -8587,7 +8587,7 @@ value = 52
 ;shabon1
 [Statedef 3251]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 ctrl = 0
@@ -8704,7 +8704,7 @@ trigger1 = pos x <= -240 || pos x >= 240
 ;shabon1
 [Statedef 3252]
 type    = S
-movetype= A
+movetype = A
 physics = N
 poweradd= 0
 ctrl = 0

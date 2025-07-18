@@ -865,7 +865,7 @@ triggerall = command = "holdfwd"
 triggerall = command != "holddown"
 triggerall = command = "a"
 triggerall = power >= 1000
-trigger1 = stateno = [150,153]
+trigger1 = stateno = [150, 153]
 trigger1 = time > 0
 value = 720
 
@@ -903,7 +903,7 @@ trigger1 = ctrl
 trigger2 = var(4) = [1, 3]
 
 ;==============================================================================
-; ’ÊíUŒ‚‹Z
+; normals
 ;==============================================================================
 [State -1, 5a]
 type = ChangeState

@@ -131,13 +131,6 @@ triggerall = p2MoveType != H
 trigger1 = var(13) = 0
 fVar(20) = 0
 
-[State -2,投げ補正初期化]
-type = VarSet
-triggerall = var(14) != 0
-trigger1 = EnemyNear,MoveType != H
-trigger1 = NumTarget = 0
-var(14) = 0
-
 [State -2,壁バウンド初期化]
 type = VarSet
 triggerall = var(9) != 0
@@ -147,13 +140,13 @@ var(9) = 0
 
 [State -2,コンボ補正3]
 type = VarSet
-trigger1 = fvar(10) < 0.5
-trigger1 = (stateno=[3000,3499]) && (!var(14))
-fVar(10) = 0.5
+trigger1 = 1
+fVar(10) = ifelse((1.0-(var(13)*0.05))<=0,0.1,(1.0-(var(13)*0.05)))
 [State -2,コンボ補正3]
 type = VarSet
-trigger1 = !(stateno=[3000,3499]) || (var(14))
-fVar(10) = ifelse((1.0-(var(13)*0.05))*ifelse(var(14),.5,1)<=0,0.1,(1.0-(var(13)*0.05))*ifelse(var(14),.5,1))
+triggerall = fvar(10) < 0.5
+trigger1 = (stateno=[3000,3499])
+fVar(10) = 0.5
 
 [State -2,アサルトフラグ]
 type = varset
