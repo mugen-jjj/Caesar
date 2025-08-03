@@ -3796,6 +3796,11 @@ type = playsnd
 trigger1 = !time
 value = 710, 5
 
+[State 2200, vel]
+type = posadd
+trigger1 = AnimElemTime(5) = 0
+x = 12
+
 [State 200, se]
 type = PlaySnd
 trigger1 = AnimElem = 5
@@ -3857,8 +3862,7 @@ fall = 0
 air.fall = 1
 fall.recover = 0
 down.bounce = 0
-ground.cornerpush.veloff = -4
-guard.CornerPush.VelOff = -30
+ground.CornerPush.VelOff = -30
 id = stateno
 
 [State 800]
@@ -6627,7 +6631,7 @@ attr = S, SP
 damage = ceil(21*fVar(10)),ceil(21*.20*fVar(10))
 animtype = Light
 guardflag = MA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 3, 3
 hitsound   = s2, 7
 guardsound = s10, 0
@@ -6662,7 +6666,7 @@ attr = A, SP
 damage = ceil(21*fVar(10)),ceil(21*.20*fVar(10))
 animtype = Light
 guardflag = MA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 3, 3
 hitsound   = s2, 7
 guardsound = s10, 0
@@ -6697,7 +6701,7 @@ attr = S, SP
 damage = ceil(21*fVar(10)),ceil(21*.20*fVar(10))
 animtype = Light
 guardflag = MA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 3, 3
 hitsound   = s2, 7
 guardsound = s10, 0
@@ -6732,7 +6736,7 @@ attr = S, SP
 damage = ceil(21*fVar(10)),ceil(21*.20*fVar(10))
 animtype = Light
 guardflag = MA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 3, 3
 hitsound   = s2, 7
 guardsound = s10, 0
@@ -6766,7 +6770,7 @@ attr = S, SP
 damage = ceil(21*fVar(10)),ceil(21*.20*fVar(10))
 animtype = Light
 guardflag = MA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 3, 3
 hitsound   = s2, 7
 guardsound = s10, 0
