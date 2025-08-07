@@ -1209,7 +1209,7 @@ persistent = 0
 ; HIT_GETUP
 [Statedef 5120]
 type    = L
-movetype= I
+movetype = I
 physics = N
 
 [State 5120, 3]
@@ -2587,7 +2587,7 @@ ctrl = 1
 ;特殊ジャンプ
 [Statedef 300]
 type    = S
-movetype= I
+movetype = I
 physics = N
 poweradd = 0
 ctrl = 0
@@ -5134,6 +5134,13 @@ type = ParentVarAdd
 trigger1 = MoveHit = 1
 var(13) = 1
 
+[State 0, power]
+type = poweradd
+trigger1 = movehit = 1
+value = 20
+ignorehitpause = 1
+persistent = 0
+
 [State , trans]
 Type = Trans
 Trigger1 = var(4) = 1
@@ -5169,7 +5176,7 @@ guard.velocity = -1.5
 air.velocity = -4,-3 + root,fvar(20)
 airguard.velocity = -3,-2
 yaccel = 0.45
-getpower = 20,0
+getpower = 0,0
 givepower = 5,0
 air.fall = 1
 fall = 0
@@ -5206,7 +5213,7 @@ guard.velocity = -1.5
 air.velocity = -4,-3 + root,fvar(20)
 airguard.velocity = -3,-2
 yaccel = 0.45
-getpower = 20,0
+getpower = 0,0
 givepower = 5,0
 air.fall = 1
 fall = 0
@@ -5242,7 +5249,7 @@ guard.velocity = -1.5
 air.velocity = -4,-3 + root,fvar(20)
 airguard.velocity = -3,-2
 yaccel = 0.45
-getpower = 20,0
+getpower = 0,0
 givepower = 5,0
 air.fall = 1
 fall = 0
@@ -5706,6 +5713,31 @@ Trigger1 = Time >= Var(6) - 30
 time = 1
 mul = 128,128,128
 
+[State 0, end]
+type = varset
+trigger1 = movehit = 1
+trigger1 = numtarget(2050)
+var(46) = 1
+ignorehitpause = 1
+
+[State 0, end]
+type = parentvaradd
+trigger1 = var(46)
+var(13) = var(46)
+ignorehitpause = 1
+
+[State 0, end]
+type = poweradd
+trigger1 = var(46)
+value = 10
+ignorehitpause = 1
+
+[State 0, end]
+type = varset
+trigger1 = var(46)
+var(46) = 0
+ignorehitpause = 1
+
 ;;;Hit
 [State 200, カッター]
 type = HitDef
@@ -5734,7 +5766,7 @@ guard.velocity = -1.5
 air.velocity = -2,-7 + root,fvar(20)
 airguard.velocity = -3,-2
 yaccel = 0.45
-getpower = 20,0
+getpower = 0,0
 givepower = 5,0
 air.fall = 1
 fall = 0
@@ -5829,6 +5861,24 @@ trigger1 = 1
 scale = 1.25 - time * 0.31 , 0.15
 ID = 1270
 
+[State 0, end]
+type = varset
+trigger1 = movehit = 1
+var(46) = 1
+ignorehitpause = 1
+
+[State 0, end]
+type = poweradd
+trigger1 = var(46)
+value = 20
+ignorehitpause = 1
+
+[State 0, end]
+type = varset
+trigger1 = var(46)
+var(46) = 0
+ignorehitpause = 1
+
 [State 200, hit2]
 type = HitDef
 trigger1 = Time = 0
@@ -5853,7 +5903,7 @@ ground.velocity = -2;12
 air.velocity = -2, -6.5 + root,fvar(20)
 yaccel = 0.45
 getpower = 0,0
-givepower = 0,0
+givepower = 10,0
 fall = 0
 air.fall = 1
 fall.recover = 0
@@ -6029,7 +6079,7 @@ value = 1305
 ;波紋蹴り(終了)
 [Statedef 1305]
 type    = S
-movetype= I
+movetype = I
 physics = N
 ctrl = 0
 velset = 0,0
@@ -6470,7 +6520,7 @@ trigger1 = anim = 2161 && !animtime
 ;シャボンバリアー(被ダメ破裂)
 [Statedef 2130]
 type    = S
-movetype= I
+movetype = I
 physics = N
 velset = 0,0
 anim = 2161
@@ -6815,7 +6865,7 @@ value = 2210
 ;end
 [Statedef 2210]
 type    = S
-movetype= I
+movetype = I
 physics = N
 ctrl = 0
 velset = 0,0
@@ -6837,7 +6887,7 @@ ctrl = 1
 ;波紋の呼吸
 [Statedef 2300]
 type    = S
-movetype= I
+movetype = I
 physics = S
 ctrl = 0
 anim = 2300
@@ -6914,7 +6964,7 @@ value = 2301
 ;波紋の呼吸END
 [Statedef 2301]
 type    = S
-movetype= I
+movetype = I
 physics = S
 ctrl = 0
 anim = 2301
@@ -8684,7 +8734,7 @@ value = 3220
 ;終
 [Statedef 3220]
 type    = A
-movetype= I
+movetype = I
 physics = N
 anim = 41
 ctrl = 0
@@ -9025,7 +9075,7 @@ value = 5081 ;HIT_LIEDOWN
 ;まく
 [Statedef 3260]
 type    = S
-movetype= I
+movetype = I
 physics = N
 ctrl = 0
 anim = 3260
