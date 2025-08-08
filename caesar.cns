@@ -4,7 +4,7 @@
 ; Var(2)  = 技強弱とか汎用 適宜リセットして使う
 ; Var(3)  = 投げ向き
 ; Var(4)  = キャンセルフラグ
-; Var(5)  = 3cヒットフラグ
+; Var(5)  = アサルトチェインhitフラグ
 ; Var(6)  = x
 ; Var(7)  = y
 ; Var(8)  = 特殊ジャンプフラグ
@@ -14,7 +14,7 @@
 ; Var(11) = 勝利演出
 ; Var(12) = 相手フライング
 ; Var(13) = ヒット数
-; Var(14) = 投げ補正
+; Var(14) = 
 ; Var(15) = レンズ
 ; Var(16) = 真っ黒可能フラグ
 ; Var(17) = 特殊ジャンプフラグ
@@ -2215,7 +2215,7 @@ ground.hittime  = 10
 ground.velocity = -4
 air.velocity = ifelse(p2stateno=5950,-1.5,-4),ifelse(p2stateno=5950,-8,-3.8 + fVar(20))
 yaccel = 0.45
-getpower = 40,0
+getpower = 40*(var(5)), 0
 givepower = 20,0
 fall = 0
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
@@ -2287,7 +2287,7 @@ guard.ctrltime  = 14
 ground.velocity = -4
 air.velocity = -4, -3.8 + fVar(20)
 yaccel = 0.45
-getpower = 50,0
+getpower = 50*(var(5)), 0
 givepower = 25,0
 fall = 0
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
@@ -2386,7 +2386,7 @@ guard.ctrltime  = 14
 ground.velocity = -9, -5.2 + fVar(20)
 air.velocity = -9, -5.2 + fVar(20)
 yaccel = 0.45
-getpower = 50,0
+getpower = 50*(var(5)), 0
 givepower = 20,0
 fall = 1
 air.fall = 1;ifelse(EnemyNear,Movetype=H,1,0)
@@ -2476,8 +2476,8 @@ guard.ctrltime  = 14
 ground.velocity = -4
 air.velocity = -4 ,-3.8 + fVar(20)
 yaccel = 0.45
-getpower = 80,0
-givepower = 40,0
+getpower = 80*(var(5)), 0
+givepower = 40, 0
 fall = 0
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
 fall.recover = 0
@@ -2562,8 +2562,8 @@ ground.hittime  = 10
 ground.velocity = -2,-11 + fVar(20)
 air.velocity = -2,-11 + fVar(20)
 yaccel = 0.45
-getpower = 60,0
-givepower = 30,0
+getpower = 80*var(5), 0
+givepower = 40, 0
 fall = 1
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
 fall.recover = 0
@@ -2768,7 +2768,7 @@ ground.hittime  = 10
 ground.velocity = -4
 air.velocity = ifelse(p2stateno=5950,-1.5,-4),ifelse(p2stateno=5950,-8,-3.8 + fVar(20))
 yaccel = 0.45
-getpower = 40,0
+getpower = 40*(var(5)), 0
 givepower = 20,0
 fall = 0
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
@@ -2823,7 +2823,7 @@ trigger1 = AnimElem = 2
 attr = C, NA
 animtype  = medium
 damage    = ceil(41*fVar(10)),0
-guardflag = M
+guardflag = L
 pausetime = 11,11
 sparkno = s6001
 guard.sparkno = s6040
@@ -2840,7 +2840,7 @@ guard.ctrltime  = 14
 ground.velocity = -4
 air.velocity = ifelse(p2stateno=5950,-1.5,-4),ifelse(p2stateno=5950,-8,-3.8 + fVar(20))
 yaccel = 0.45
-getpower = 50,0
+getpower = 50*(var(5)), 0
 givepower = 25,0
 fall = 0
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
@@ -2927,8 +2927,8 @@ guard.ctrltime  = 16
 ground.velocity = -3,-4 + fVar(20)
 air.velocity = -3,-4 + fVar(20)
 yaccel = 0.45
-getpower = 80,0
-givepower = 40,0
+getpower = 80*(var(5)), 0
+givepower = 40, 0
 fall = 1
 air.fall = 1;ifelse(EnemyNear,Movetype=H,1,0)
 fall.recover = 0
@@ -3013,7 +3013,7 @@ guard.velocity = -4
 air.velocity = -2.8, -4.4 + fVar(20)
 airguard.velocity = -2.8, -2.2
 yaccel = 0.45
-getpower = 40,0
+getpower = 40*(var(5)), 0
 givepower = 20,(var(8)>0)*300
 fall = 0
 air.fall = 0
@@ -3137,7 +3137,7 @@ guard.velocity = -4
 air.velocity = -2.8, -4.4 + fVar(20)
 airguard.velocity = -2.8, -2.2
 yaccel = 0.45
-getpower = 50, 0
+getpower = 50*(var(5)), 0
 givepower = 25, 0
 fall = 0
 air.fall = 0
@@ -3176,7 +3176,7 @@ guard.velocity = -11
 air.velocity = -2, -8
 airguard.velocity = -2.8, -2.2
 yaccel = 0.45
-getpower = 50, 0
+getpower = 50*(var(5)), 0
 givepower = 25, 300
 fall = 0
 air.fall = 1
@@ -3316,7 +3316,7 @@ ground.velocity = -3.5
 air.velocity = -2.8, -4.4 + fVar(20)
 airguard.velocity = -2.8, -2.2
 yaccel = 0.45
-getpower = 80,0
+getpower = 80*(var(5)), 0
 givepower = 40, 0
 fall = 0
 air.fall = 0
@@ -3350,7 +3350,7 @@ ground.velocity = -3.5
 air.velocity = -2, -8
 airguard.velocity = -11, -2.2
 yaccel = 0.45
-getpower = 80, 0
+getpower = 80*(var(5)), 0
 givepower = 40, 300
 fall = 0
 air.fall = 1
@@ -3483,8 +3483,8 @@ ground.hittime  = 18
 ground.velocity = -3.5 + fVar(20)
 air.velocity = -5,10 + fVar(20)
 yaccel = 0.45
-getpower = 80,0
-givepower = 40,0
+getpower = 80*(var(5)), 0
+givepower = 40, 0
 fall = 0
 air.fall = 1;ifelse(EnemyNear,Movetype=H,1,0)
 fall.recover = 0
@@ -3565,6 +3565,11 @@ velset = 0,0
 type = varset
 trigger1 = !time
 var(8) = 1 + (prevstateno = 710)
+
+[State 100, power_limit]
+type = varset
+trigger1 = var(8) = 2
+var(5) = 0
 
 [State 100, pow]
 type = poweradd
@@ -3734,7 +3739,7 @@ sprpriority = 5
 [State 3000, ZOOM]
 type = zoom
 trigger1 = time<=4
-scale = 1 + (0.0625*time)
+scale = 1 + (0.03125*time)
 pos = root,pos x+5*(root,facing), root, pos y
 ignorehitpause = 1
 
@@ -3742,7 +3747,7 @@ ignorehitpause = 1
 type = zoom
 trigger1 = time>4
 trigger1 = time<=30-4
-scale = 1.25
+scale = 1.125
 pos = root,pos x+5*(root,facing), root, pos y
 ignorehitpause = 1
 
@@ -3750,7 +3755,7 @@ ignorehitpause = 1
 type = zoom
 trigger1 = time>30-4
 trigger1 = time<=30
-scale = 1.25 - (0.0625*(time-(30-4)))
+scale = 1.125 - (0.03125*(time-(30-4)))
 pos = root,pos x+5*(root,facing), root,pos y+((time-(30-4))*5)
 ignorehitpause = 1
 
@@ -3764,7 +3769,7 @@ trigger1 = Time >= 30
 type    = S
 movetype = A
 physics = N
-poweradd = 50
+poweradd = 50*var(5)
 ctrl = 0
 velset = 0,0
 anim = 710
@@ -4508,11 +4513,6 @@ type = TargetState
 trigger1 = time = 51
 value = 821
 
-[State 800, 方向判定]
-type = Varset
-trigger1 = Time = 51
-var(14) = 1
-
 [State 810, ステート変更]
 type = ChangeState
 trigger1 = AnimTime = 0
@@ -5137,7 +5137,7 @@ var(13) = 1
 [State 0, power]
 type = poweradd
 trigger1 = movehit = 1
-value = 20
+value = 20*root,var(5)
 ignorehitpause = 1
 persistent = 0
 
@@ -5421,7 +5421,7 @@ ctrl = 1
 type    = S
 movetype = A
 physics = N
-poweradd = 50
+poweradd = 50*var(5)
 velset = 0,0
 anim = 1200
 ctrl = 0
@@ -5729,7 +5729,7 @@ ignorehitpause = 1
 [State 0, end]
 type = poweradd
 trigger1 = var(46)
-value = 10
+value = 10*root,var(5)
 ignorehitpause = 1
 
 [State 0, end]
@@ -5870,7 +5870,7 @@ ignorehitpause = 1
 [State 0, end]
 type = poweradd
 trigger1 = var(46)
-value = 20
+value = 20*root,var(5)
 ignorehitpause = 1
 
 [State 0, end]
@@ -5940,7 +5940,7 @@ trigger1 = anim = 9999
 type    = S
 movetype = A
 physics = N
-poweradd = 50
+poweradd = 50*var(5)
 ctrl = 0
 velset = 0,0
 sprpriority = 2
@@ -6060,8 +6060,8 @@ ground.hittime  = 18
 ground.velocity = -4, -9 + fVar(20)
 air.velocity = -4, -9 + fVar(20)
 yaccel = 0.45
-getpower = 80,0
-givepower = 40,0
+getpower = 80*(var(5)), 0
+givepower = 40, 0
 fall = 1
 air.fall = ifelse(EnemyNear,Movetype=H,1,0)
 palfx.color = 60
@@ -6306,8 +6306,8 @@ guardflag = MA
 hitflag = MAF
 priority = 7, Hit
 pausetime = 0, 7
-getpower = 40,0
-givepower = 40,0
+getpower = 40*(var(5)), 0
+givepower = 40, 0
 ground.type = high
 ground.slidetime = 20
 ground.hittime  = 20
@@ -6322,7 +6322,7 @@ fall.recover = 1
 ;p1stateno = 2110
 ;p2stateno = 2120
 getpower = 0,0
-givepower = 30,0
+givepower = 0,0
 ;hitonce = 1
 kill = 0
 id = stateno
@@ -6454,7 +6454,7 @@ kill = 1
 [State 200, ヒット定義]
 type = poweradd
 trigger1 = !time
-value = 100
+value = 100*root,var(5)
 
 [State 200, ヒット定義]
 type = parentvaradd
