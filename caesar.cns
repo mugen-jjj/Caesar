@@ -3844,7 +3844,7 @@ type = HitDef
 trigger1 = AnimElem = 5
 attr = S, SA
 animtype  = Hard
-damage    = ceil(100*fVar(10)), 0
+damage    = ceil(80*fVar(10)), 80 - 1
 guardflag = M
 pausetime = 30, 30
 guard.pausetime = 45, 45
@@ -3867,7 +3867,7 @@ fall = 0
 air.fall = 1
 fall.recover = 0
 down.bounce = 0
-ground.CornerPush.VelOff = -30
+guard.Kill = 0
 id = stateno
 
 [State 800]
@@ -3885,8 +3885,29 @@ type = TargetState
 triggerall = numtarget(StateNo)
 triggerall = target,statetype != A
 trigger1 = time > 1 && moveguarded = 1
-trigger1 = 1||var(4) := 80
 value = 5910
+id = StateNo
+
+[State 800]
+type = varset
+trigger1 = time > 1 && movecontact = 1
+var(4) = ifelse(movehit, 70, 80)
+
+[State 800]
+type = TargetLifeadd
+triggerall = numtarget(StateNo)
+trigger1 = var(4) = 80
+value = -1
+id = StateNo
+persistent = 0
+
+[State 800]
+type = TargetState
+triggerall = numtarget(StateNo)
+trigger1 = var(4) = 80
+trigger1 = !target(StateNo),alive
+trigger1 = target(StateNo),stateno != [5950, 5951]
+value = 5950
 id = StateNo
 
 [State 0, assault]
@@ -3905,22 +3926,6 @@ scale = 1, 1
 ignorehitpause = 1
 persistent = 0
 
-[State 800]
-type = TargetLifeadd
-triggerall = numtarget(StateNo)
-trigger1 = var(4) = 80
-value = -50
-id = StateNo
-persistent = 0
-
-[State 800]
-type = TargetState
-triggerall = numtarget(StateNo)
-trigger1 = var(4) = 80
-trigger1 = !target(StateNo),alive
-value = 5950
-id = StateNo
-
 [State 5910]
 type = PlaySnd
 triggerall = numtarget(StateNo)
@@ -3935,13 +3940,6 @@ trigger1 = var(4) = 80
 var(13) = 1
 IgnoreHitPause = 1
 persistent = 0
-
-[State 200, hosei]
-type = VarSet
-triggerall = movehit
-trigger1 = AnimElemTime(5) >= 0
-var(4) = 5
-IgnoreHitPause = 1
 
 [state 300001, helper]
 type = helper
@@ -4001,6 +3999,7 @@ type = S
 movetype = H
 physics = N
 ctrl = 0
+velset = 0, 0
 sprpriority = 1
 
 [State 5000, 1] ;Anim for HIT_LIGHT to HIT_HARD

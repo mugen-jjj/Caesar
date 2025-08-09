@@ -661,7 +661,7 @@ triggerall = power >= 3000
 triggerall = var(16)
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
-trigger2 = (var(4) = [1, 10]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 10])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 3000
 
@@ -675,7 +675,7 @@ triggerall = command = "236aa" || command = "236b"
 triggerall = power >= 1000
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
-trigger2 = (var(4) = [1, 10]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 10])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 3100
 
@@ -689,7 +689,7 @@ triggerall = command = "214aa" || command = "214b"
 triggerall = power >= 1000
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
-trigger2 = (var(4) = [1, 10]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 10])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 3200
 
@@ -704,7 +704,7 @@ triggerall = power >= 1000
 triggerall = !var(8)
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
-trigger2 = (var(4) = [1, 10]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 10])
 trigger3 = Stateno = 300 && Anim = 301 && Time >= 9
 value = 3202
 
@@ -719,7 +719,7 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "623x" || command = "623y" || command = "623z"
 trigger1 = ctrl
-trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 5])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 1300
 
@@ -731,7 +731,7 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "236x" || command = "236y"
 trigger1 = ctrl
-trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 5])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 1000
 
@@ -744,7 +744,7 @@ triggerall = statetype != A
 triggerall = command = "22x" || command = "22y" || command = "22z"
 triggerall = var(18) = 0
 trigger1 = ctrl
-trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 5])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 1200
 
@@ -756,7 +756,7 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "236z"
 trigger1 = ctrl
-trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
+trigger2 = (var(4) = [1, 5])
 trigger3 = stateno = 52 && var(8) >= 10
 value = 1100
 
@@ -791,7 +791,7 @@ triggerall = command = "holdfwd"
 triggerall = statetype != A
 trigger1 = ctrl
 trigger2 = (var(4) = [1, 4])
-trigger3 = stateno = 710 && (var(4) = 5 || var(4) = 80)
+trigger3 = stateno = 710 && (var(4) = 70 || var(4) = 80)
 trigger3 = power >= 1000
 
 [State -1, break]
