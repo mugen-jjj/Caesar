@@ -4932,7 +4932,7 @@ ctrl = 1
 type    = C
 movetype = A
 physics = N
-poweradd= 50
+poweradd = 50
 velset = 0,0
 anim = 1100
 ctrl = 0
@@ -5034,7 +5034,7 @@ sprpriority = 1
 type = VarSet
 trigger1 = !AILevel
 trigger1 = Time = 0
-var(2) = IfElse(command = "22z", 2, IfElse(command = "22y", 1, 0))
+var(2) = IfElse((command = "22z" || var(31)&2**18), 2, IfElse(command = "22y" || var(31)&2**17, 1, 0))
 
 [State 200, anim]
 type = changeanim
@@ -5167,7 +5167,7 @@ y = 0
 type = VarSet
 trigger1 = !AILevel
 trigger1 = Time = 0
-var(2) = IfElse(command = "22z", 2, IfElse(command = "22y", 1, 0))
+var(2) = IfElse((command = "22z" || var(31)&2**18), 2, IfElse(command = "22y" || var(31)&2**17, 1, 0))
 
 [State 200, anim]
 type = changeanim
@@ -5307,13 +5307,13 @@ sprpriority = 2
 type = VarSet
 trigger1 = AILevel = 0
 trigger1 = Time = 0
-var(2)= IfElse(Command = "623z", 2, 0)
+var(2)= IfElse((Command = "623z" || var(31)&2**15), 2, 0)
 
 [State 200, ïœêî]
 type = VarSet
 trigger1 = AILevel
 trigger1 = Time = 0
-var(2)= 2
+var(2) = 2
 
 [State 200, anim]
 type = ChangeAnim
@@ -5923,7 +5923,7 @@ value = 0
 type    = A
 movetype= H
 physics = N
-poweradd= 50
+poweradd = 50
 anim = 5050
 ctrl = 0
 sprpriority = 1

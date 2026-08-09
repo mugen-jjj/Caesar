@@ -655,7 +655,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "c"
+triggerall = (command = "c" || (var(30) > 0 && var(31)&2**2))
 triggerall = power >= 3000
 triggerall = var(16)
 trigger1 = ctrl
@@ -670,7 +670,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "236aa" || command = "236b"
+triggerall = (command = "236aa" || command = "236b") || (var(30) > 0 && var(31)&2**20)
 triggerall = power >= 1000
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
@@ -684,7 +684,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "214aa" || command = "214b"
+triggerall = (command = "236aa" || command = "236b") || (var(30) > 0 && var(31)&2**21)
 triggerall = power >= 1000
 trigger1 = ctrl
 trigger2 = stateno != [3000, 3999]
@@ -698,7 +698,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype = A
-triggerall = command = "214aa" || command = "214b"
+triggerall = (command = "214aa" || command = "214b") || (var(30) > 0 && var(31)&2**21)
 triggerall = power >= 1000
 triggerall = !var(8)
 trigger1 = ctrl
@@ -716,7 +716,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "623x" || command = "623y" || command = "623z"
+triggerall = (command = "623x" || (var(30) > 0 && var(31)&2**13)) || (command = "623y" || (var(30) > 0 && var(31)&2**14)) || (command = "623z" || (var(30) > 0 && var(31)&2**15))
 trigger1 = ctrl
 trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
 trigger3 = stateno = 52 && var(8) >= 10
@@ -728,7 +728,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "236x" || command = "236y"
+triggerall = (command = "236x" || (var(30) > 0 && var(31)&2**10)) || (command = "236y" || (var(30) > 0 && var(31)&2**11))
 trigger1 = ctrl
 trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
 trigger3 = stateno = 52 && var(8) >= 10
@@ -740,7 +740,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "236z"
+triggerall = (command = "236z" || (var(30) > 0 && var(31)&2**12))
 trigger1 = ctrl
 trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
 trigger3 = stateno = 52 && var(8) >= 10
@@ -752,7 +752,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "22x" || command = "22y" || command = "22z"
+triggerall = (command = "22x" || (var(30) > 0 && var(31)&2**16)) || (command = "22y" || (var(30) > 0 && var(31)&2**17)) || (command = "22z" || (var(30) > 0 && var(31)&2**18))
 trigger1 = ctrl
 trigger2 = (var(4) = [1, 5]) || (var(4) = 80)
 trigger3 = stateno = 52 && var(8) >= 10
@@ -764,7 +764,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype = A
-triggerall = command = "22x" || command = "22y" || command = "22z"
+triggerall = (command = "22x" || (var(30) > 0 && var(31)&2**16)) || (command = "22y" || (var(30) > 0 && var(31)&2**17)) || (command = "22z" || (var(30) > 0 && var(31)&2**18))
 triggerall = !var(8)
 triggerall = !(var(21)&2**0)
 trigger1 = ctrl
@@ -779,7 +779,7 @@ value = 1220
 [State -1, ‘–‚é]
 type = ChangeState
 triggerall = AILevel = 0
-trigger1 = command = "FF"
+trigger1 = command = "FF" || (var(30) > 0 && var(31)&2**7)
 trigger1 = statetype != A
 trigger1 = ctrl
 value = 100
@@ -790,7 +790,7 @@ value = 105
 triggerall = AILevel = 0
 triggerall = statetype != A
 triggerall = ctrl
-trigger1 = command = "BB"
+trigger1 = command = "BB" || (var(30) > 0 && var(31)&2**8)
 
 ;==============================================================================
 ; S‹Z
@@ -799,7 +799,7 @@ trigger1 = command = "BB"
 type = ChangeState
 value = 700
 triggerall = !AILevel
-triggerall = (command = "x" && command = "y")
+triggerall = (command = "x" && command = "y") || (var(30) > 0 && var(31)&2**3 && var(31)&2**4)
 triggerall = command = "holdfwd"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -811,7 +811,7 @@ trigger3 = power >= 1000
 type = ChangeState
 value = 710
 triggerall = !AILevel
-triggerall = (command = "x" && command = "y")
+triggerall = (command = "x" && command = "y") || (var(30) > 0 && var(31)&2**3 && var(31)&2**4)
 triggerall = command = "holdback"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -823,7 +823,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "b"
+triggerall = command = "b" || (var(30) > 0 && var(31)&2**1)
 triggerall = command != "holddown"
 trigger1 = ctrl
 trigger2 = var(4) = [1, 4]
@@ -836,7 +836,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "b"
+triggerall = command = "b" || (var(30) > 0 && var(31)&2**1)
 triggerall = command = "holddown"
 trigger1 = ctrl
 trigger2 = var(4) = [1, 4]
@@ -849,7 +849,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype = A
-triggerall = command = "b"
+triggerall = command = "b" || (var(30) > 0 && var(31)&2**1)
 triggerall = !var(8)
 triggerall = !(var(21)&2**1)
 trigger1 = ctrl
@@ -866,7 +866,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "a"
+triggerall = command = "a" || (var(30) > 0 && var(31)&2**0)
 trigger1 = ctrl
 value = 800
 
@@ -878,7 +878,7 @@ triggerall = roundstate = 2
 triggerall = statetype != A
 triggerall = command = "holdfwd"
 triggerall = command != "holddown"
-triggerall = command = "a"
+triggerall = command = "a" || (var(30) > 0 && var(31)&2**0)
 triggerall = power >= 1000
 trigger1 = stateno = [150, 153]
 trigger1 = time > 0
@@ -890,7 +890,7 @@ type = ChangeState
 triggerall = AILevel = 0
 triggerall = roundstate = 2
 triggerall = statetype != A
-triggerall = command = "ExJump"
+triggerall = command = "ExJump" || (var(30) > 0 && var(31)&2**30)
 trigger1 = ctrl
 trigger2 = var(4) = [1, 4]
 value = 300
@@ -900,7 +900,7 @@ value = 300
 type = ChangeState
 value = 211
 triggerall = AILevel = 0
-triggerall = command = "y" && command = "holdfwd"
+triggerall = (command = "y" || (var(30) > 0 && var(31)&2**4)) && command = "holdfwd"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -911,7 +911,7 @@ trigger2 = var(4) = [1, 3]
 type = ChangeState
 value = 221
 triggerall = AILevel = 0
-triggerall = command = "z" && command = "holdfwd"
+triggerall = (command = "z" || (var(30) > 0 && var(31)&2**5)) && command = "holdfwd"
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -924,7 +924,7 @@ trigger2 = var(4) = [1, 3]
 type = ChangeState
 value = 200
 triggerall = AILevel = 0
-triggerall = command = "x"
+triggerall = command = "x" || (var(30) > 0 && var(31)&2**3)
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -934,7 +934,7 @@ trigger2 = var(4) = 1
 type = ChangeState
 value = 210
 triggerall = AILevel = 0
-triggerall = command = "y"
+triggerall = command = "y"; || (var(30) > 0 && var(31)&2**4)
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -944,7 +944,7 @@ trigger2 = var(4) = 1
 type = ChangeState
 value = 220
 triggerall = AILevel = 0
-triggerall = command = "z"
+triggerall = command = "z" || (var(30) > 0 && var(31)&2**5)
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -954,7 +954,7 @@ trigger2 = var(4) = [1, 2]
 type = ChangeState
 value = 400
 triggerall = AILevel = 0
-triggerall = command = "x"
+triggerall = command = "x" || (var(30) > 0 && var(31)&2**3)
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -964,7 +964,7 @@ trigger2 = var(4) = 1
 type = ChangeState
 value = 410
 triggerall = AILevel = 0
-triggerall = command = "y"
+triggerall = command = "y" || (var(30) > 0 && var(31)&2**4)
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -974,7 +974,7 @@ trigger2 = var(4) = 1
 type = ChangeState
 value = 420
 triggerall = AILevel = 0
-triggerall = command = "z"
+triggerall = command = "z" || (var(30) > 0 && var(31)&2**5)
 triggerall = command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
@@ -984,7 +984,7 @@ trigger2 = var(4) = [1, 2]
 type = ChangeState
 value = 600
 triggerall = AILevel = 0
-triggerall = command = "x"
+triggerall = command = "x" || (var(30) > 0 && var(31)&2**3)
 triggerall = statetype = A
 trigger1 = ctrl
 trigger2 = var(18)
@@ -994,14 +994,14 @@ type = ChangeState
 value = 610
 triggerall = !AILevel
 triggerall = statetype = A
-trigger1 = command = "y"
+trigger1 = command = "y" || (var(30) > 0 && var(31)&2**4)
 trigger1 = ctrl
-trigger2 = command = "y"
+trigger2 = command = "y" || (var(30) > 0 && var(31)&2**4)
 trigger2 = var(8) = 0
 trigger2 = var(4) = 1
-trigger3 = command = "y"
+trigger3 = command = "y" || (var(30) > 0 && var(31)&2**4)
 trigger3 = var(18)
-trigger4 = (command = "y" || command = "holdy") || ((command = "x" || command = "holdx") && stateno = 700)
+trigger4 = (command = "y" || (var(30) > 0 && var(31)&2**4) || command = "holdy") || ((command = "x" || (var(30) > 0 && var(31)&2**3) || command = "holdx") && stateno = 700)
 trigger4 = stateno = 700 && time >= 17
 
 [State -1, jc]
@@ -1009,21 +1009,21 @@ type = ChangeState
 value = 620
 triggerall = !AILevel
 triggerall = statetype = A
-trigger1 = command = "z"
+trigger1 = command = "z" || (var(30) > 0 && var(31)&2**5)
 trigger1 = ctrl
-trigger2 = command = "z"
+trigger2 = command = "z" || (var(30) > 0 && var(31)&2**5)
 trigger2 = var(8) = 0
 trigger2 = var(4) = [1, 2]
-trigger3 = command = "z"
+trigger3 = command = "z" || (var(30) > 0 && var(31)&2**5)
 trigger3 = var(18)
-trigger4 = (command = "z" || command = "holdz")
+trigger4 = (command = "z" || (var(30) > 0 && var(31)&2**5) || command = "holdz")
 trigger4 = stateno = 700 && time >= 17
 
 [State -1, ƒWƒƒƒ“ƒv8c2]
 type = ChangeState
 value = 625
 triggerall = AILevel = 0
-triggerall = command = "z"
+triggerall = command = "z" || (var(30) > 0 && var(31)&2**5)
 triggerall = statetype = A
 trigger1 = var(8) = 0
 trigger1 = Stateno = 620 && var(4) = 3
@@ -1035,6 +1035,6 @@ trigger1 = AnimElemTime(4) < 0
 type = ChangeState
 value = 195
 triggerall = AILevel = 0
-triggerall = command = "start"
+triggerall = command = "start" || (var(30) > 0 && var(31)&2**6)
 trigger1 = statetype != A
 trigger1 = ctrl
