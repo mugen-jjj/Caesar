@@ -493,13 +493,6 @@ Type = VarSet
 trigger1 = time = 0
 var(6) = 120
 
-[State , time]
-Type = VarSet
-trigger1 = time >= Var(6) - 30
-trigger1 = root,movetype = H
-trigger1 = root,stateno != [120, 159]
-var(6) = var(6) + 1
-
 [State 0, explod]
 type = helper
 trigger1 = time = Var(6)

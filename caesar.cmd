@@ -934,7 +934,7 @@ trigger2 = var(4) = 1
 type = ChangeState
 value = 210
 triggerall = AILevel = 0
-triggerall = command = "y"; || (var(30) > 0 && var(31)&2**4)
+triggerall = command = "y" || (var(30) > 0 && var(31)&2**4)
 triggerall = command != "holddown"
 triggerall = statetype != A
 trigger1 = ctrl

@@ -5307,7 +5307,7 @@ sprpriority = 2
 type = VarSet
 trigger1 = AILevel = 0
 trigger1 = Time = 0
-var(2)= IfElse((Command = "623z" || var(31)&2**15), 2, 0)
+var(2) = IfElse((Command = "623z" || var(31)&2**15), 2, 0)
 
 [State 200, •Ï”]
 type = VarSet
